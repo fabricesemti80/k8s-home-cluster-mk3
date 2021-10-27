@@ -1,0 +1,16 @@
+
+ansible
+direnv
+flux
+gnupg
+go-task
+ipcalc
+jq
+kubectl
+pinentry
+sops
+terraform
+helm
+kustomize
+pre-commit
+prettier

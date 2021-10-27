@@ -1,5 +1,15 @@
 # Template for deploying k3s backed by Flux
 
+## 🧮 My specification
+
+*(fabricesemti80)*
+
+| IP address   | Subnet         | Name         | Role        |
+| ------------ | -------------- | ------------ | ----------- |
+| 192.168.1.10 | 192.168.0.0/16 | k8s-master01 | master node |
+| 192.168.1.20 | 192.168.0.0/16 | k8s-worker01 | worker node |
+| 192.168.1.21 | 192.168.0.0/16 | k8s-worker02 | worker node |
+
 Highly opinionated template for deploying a single [k3s](https://k3s.io) cluster with [Ansible](https://www.ansible.com) and [Terraform](https://www.terraform.io) backed by [Flux](https://toolkit.fluxcd.io/) and [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/).
 
 The purpose here is to showcase how you can deploy an entire Kubernetes cluster and show it off to the world using the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/). When completed, your Git repository will be driving the state of your Kubernetes cluster. In addition with the help of the [Ansible](https://github.com/ansible-collections/community.sops), [Terraform](https://github.com/carlpett/terraform-provider-sops) and [Flux](https://toolkit.fluxcd.io/guides/mozilla-sops/) SOPS integrations you'll be able to commit GPG encrypted secrets to your public repo.
@@ -51,7 +61,7 @@ For provisioning the following tools will be used:
 #### Required
 
 | Tool                                                               | Purpose                                                             |
-|--------------------------------------------------------------------|---------------------------------------------------------------------|
+| ------------------------------------------------------------------ | ------------------------------------------------------------------- |
 | [ansible](https://www.ansible.com)                                 | Preparing Ubuntu for Kubernetes and installing k3s                  |
 | [direnv](https://github.com/direnv/direnv)                         | Exports env vars based on present working directory                 |
 | [flux](https://toolkit.fluxcd.io/)                                 | Operator that manages your k8s cluster based on your Git repository |
@@ -66,12 +76,35 @@ For provisioning the following tools will be used:
 
 #### Optional
 
-| Tool                                                               | Purpose                                                             |
-|--------------------------------------------------------------------|---------------------------------------------------------------------|
-| [helm](https://helm.sh/)                                           | Manage Kubernetes applications                                      |
-| [kustomize](https://kustomize.io/)                                 | Template-free way to customize application configuration            |
-| [pre-commit](https://github.com/pre-commit/pre-commit)             | Runs checks pre `git commit`                                        |
-| [prettier](https://github.com/prettier/prettier)                   | Prettier is an opinionated code formatter.                          |
+| Tool                                                   | Purpose                                                  |
+| ------------------------------------------------------ | -------------------------------------------------------- |
+| [helm](https://helm.sh/)                               | Manage Kubernetes applications                           |
+| [kustomize](https://kustomize.io/)                     | Template-free way to customize application configuration |
+| [pre-commit](https://github.com/pre-commit/pre-commit) | Runs checks pre `git commit`                             |
+| [prettier](https://github.com/prettier/prettier)       | Prettier is an opinionated code formatter.               |
+
+```sh
+
+ $ cat brew_packages.txt
+
+ansible
+direnv
+flux
+gnupg
+go-task
+ipcalc
+jq
+kubectl
+pinentry
+sops
+terraform
+helm
+kustomize
+pre-commit
+
+# use this to install all packages (swap 'install' with 'reinstall' if needed) - fabricesemti80
+$ brew install $(cat brew_packages.txt)
+```
 
 ### :warning:&nbsp; pre-commit
 
@@ -208,6 +241,14 @@ In order to use Terraform and `cert-manager` with the Cloudflare DNS challenge y
 ### :sailboat:&nbsp; Installing k3s with Ansible
 
 :round_pushpin: Here we will be running a Ansible Playbook to install [k3s](https://k3s.io/) with [this](https://galaxy.ansible.com/xanmanning/k3s) wonderful k3s Ansible galaxy role. After completion, Ansible will drop a `kubeconfig` in `./provision/kubeconfig` for use with interacting with your cluster with `kubectl`.
+
+```yaml
+# note:
+# https://github.com/k8s-at-home/template-cluster-k3s/issues/115
+# edit this file: ./provision/ansible/inventory/group_vars/kubernetes/k3s.yml
+# set k3s_use_unsupported_config: false --> 
+k3s_use_unsupported_config: true
+```
 
 1. Verify Ansible can view your config by running `task ansible:list`
 
