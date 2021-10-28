@@ -35,6 +35,7 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "web-sync"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -46,6 +47,7 @@ spec:
         tls:
           - hosts:
               - "filebrowser.${SECRET_DOMAIN}"
+            secretName: "filebrowser-tls"
     persistence:
       config:
         enabled: true
