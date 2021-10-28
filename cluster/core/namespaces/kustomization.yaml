@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - monitoring.yaml
   - home.yaml
-  - kustomization.yaml
   - storage.yaml
   - vpn-gateway.yaml
   - metallb-system.yaml
