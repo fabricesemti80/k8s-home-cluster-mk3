@@ -369,6 +369,12 @@ The world is your cluster, try installing another application or if you have a N
 
 If you plan on exposing your ingress to the world from your home. Checkout [our rough guide](https://docs.k8s-at-home.com/guides/dyndns/) to run a k8s `CronJob` to update DDNS.
 
+## Further notes
+
+*(fabricesemti80)*
+
+I also had to copy (from)[https://github.com/onedr0p/home-cluster/tree/main/charts/kah-common] to my ./charts/kah-common the charts for this cluster to be able to add further charts.
+
 ## :handshake:&nbsp; Thanks
 
 Big shout out to all the authors and contributors to the projects that we are using in this repository.

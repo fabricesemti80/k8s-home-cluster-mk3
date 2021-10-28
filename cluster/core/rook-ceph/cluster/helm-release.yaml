@@ -29,6 +29,8 @@ spec:
     ingress:
       dashboard:
         annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
+          hajimari.io/enable: "true"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         host:
           name: "rook.${SECRET_DOMAIN}"
@@ -36,6 +38,7 @@ spec:
         tls:
           - hosts:
               - "rook.${SECRET_DOMAIN}"
+            secretName: "rook-ceph-tls"
       storage:
         #TODO: update node list
         useAllNodes: false
