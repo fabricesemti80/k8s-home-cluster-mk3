@@ -13,4 +13,4 @@ spec:
     requests:
       #^ Update storage for production. local storage is only for testing!
       storage: 1Gi
-#  storageClassName: ceph-block
+  storageClassName: ceph-block
