@@ -10,7 +10,6 @@ resources:
   - gaming.yaml
   - cert-manager.yaml
   - networking.yaml
-  - rook-ceph.yaml
   - tools.yaml
   - media.yaml
   - downloads.yaml
