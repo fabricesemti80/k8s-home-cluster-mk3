@@ -63,5 +63,5 @@ spec:
           #     - name: "nvme0n1"
     cephFileSystems: []
     cephObjectStores: []
-#! ref: https://github.com/rook/rook/blob/release-1.7/cluster/examples/kubernetes/ceph/cluster.yaml
+#& ref: https://github.com/rook/rook/blob/release-1.7/cluster/examples/kubernetes/ceph/cluster.yaml
 
