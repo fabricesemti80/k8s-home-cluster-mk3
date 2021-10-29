@@ -58,7 +58,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_ADDR}"
-            path: /tycho/Media
+            path: /PersistentVolumeClaims/Media
         mountPath: /media
         readOnly: true
     resources:
