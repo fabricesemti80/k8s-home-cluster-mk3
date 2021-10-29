@@ -24,7 +24,7 @@ spec:
       FB_ROOT: "/media"
       FB_LOG: "stdout"
       FB_NOAUTH: "true"
-      TZ: "Europe/London" #"America/New_York"
+      TZ: "America/New_York"
     service:
       main:
         ports:
@@ -58,7 +58,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_ADDR}"
-            path: /PersistentVolumeClaims/Media
+            path: /tycho/Media
         mountPath: /media
         readOnly: true
     resources:
