@@ -7,8 +7,8 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  #storageClassName: local-path
-  storageClassName: ceph-block
+  storageClassName: local-path
+  #storageClassName: ceph-block
   resources:
     requests:
       storage: 128Mi
