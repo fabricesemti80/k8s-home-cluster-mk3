@@ -7,10 +7,10 @@ metadata:
   labels:
     kasten.io/backup-volume: "enabled"
 spec:
+  storageClassName: local-path #^ Update storage for production. local storage is only for testing!
+  # storageClassName: ceph-block
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      #^ Update storage for production. local storage is only for testing!
       storage: 1Gi
-  storageClassName: ceph-block
