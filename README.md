@@ -4,11 +4,11 @@
 
 *(fabricesemti80)*
 
-| IP address   | Subnet         | Name         | Role        |
-| ------------ | -------------- | ------------ | ----------- |
-| 192.168.1.10 | 192.168.0.0/16 | k8s-master01 | master node |
-| 192.168.1.20 | 192.168.0.0/16 | k8s-worker01 | worker node |
-| 192.168.1.21 | 192.168.0.0/16 | k8s-worker02 | worker node |
+| IP address   | Subnet         | Name   | Role        |
+| ------------ | -------------- | ------ | ----------- |
+| 192.168.1.10 | 192.168.0.0/16 | k8s-m1 | master node |
+| 192.168.1.20 | 192.168.0.0/16 | k8s-w1 | worker node |
+| 192.168.1.21 | 192.168.0.0/16 | k8s-w2 | worker node |
 
 Highly opinionated template for deploying a single [k3s](https://k3s.io) cluster with [Ansible](https://www.ansible.com) and [Terraform](https://www.terraform.io) backed by [Flux](https://toolkit.fluxcd.io/) and [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/).
 
@@ -263,8 +263,8 @@ k3s_use_unsupported_config: true
 ```sh
 kubectl --kubeconfig=./provision/kubeconfig get nodes
 # NAME           STATUS   ROLES                       AGE     VERSION
-# k8s-0          Ready    control-plane,master      4d20h   v1.21.5+k3s1
-# k8s-1          Ready    worker                    4d20h   v1.21.5+k3s1
+# k8s-m1          Ready    control-plane,master      4d20h   v1.21.5+k3s1
+# k8s-w1          Ready    worker                    4d20h   v1.21.5+k3s1
 ```
 
 ### :small_blue_diamond:&nbsp; GitOps with Flux

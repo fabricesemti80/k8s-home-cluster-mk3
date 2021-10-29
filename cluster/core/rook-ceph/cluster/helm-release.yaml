@@ -46,10 +46,10 @@ spec:
         config:
           osdsPerDevice: "1"
         nodes:
-          - name: "k8s-1"
+          - name: "k8s-w1"
             devices:
               - name: "sda"
-          - name: "k8s-2"
+          - name: "k8s-w2"
             devices:
               - name: "sda"
           # - name: "k8s-3"
