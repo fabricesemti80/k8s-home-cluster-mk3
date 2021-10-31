@@ -13,4 +13,3 @@ resources:
   - tools.yaml
   - media.yaml
   - downloads.yaml
-  - rook-ceph.yaml
