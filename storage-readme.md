@@ -19,3 +19,11 @@ DISK="/dev/sdb"
 # You will have to run this step for all disks.
 sgdisk --zap-all $DISK
 ```
+
+## iSCSI
+
+https://linuxhint.com/iscsi_storage_server_ubuntu/
+
+Set target connection automatic
+
+https://askubuntu.com/questions/499246/iscsi-auto-startup-at-boot-14-04
