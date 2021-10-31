@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - common.yaml
   - operator.yaml
+  - cluster.yaml
