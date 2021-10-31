@@ -24,6 +24,10 @@ sgdisk --zap-all $DISK
 
 https://linuxhint.com/iscsi_storage_server_ubuntu/
 
-Set target connection automatic
+* Set target connection automatic
 
 https://askubuntu.com/questions/499246/iscsi-auto-startup-at-boot-14-04
+
+* Help to manage OSD-s (from toolbox pod)
+
+https://docs.ceph.com/en/latest/rados/operations/add-or-rm-osds/
