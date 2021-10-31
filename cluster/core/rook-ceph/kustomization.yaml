@@ -4,3 +4,4 @@ resources:
   - common.yaml
   - operator.yaml
   - cluster.yaml
+  - toolbox.yaml
