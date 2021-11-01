@@ -32,7 +32,7 @@ spec:
             name: cloudflare-creds
             key: api-key
     extraArgs:
-      - --cloudflare-proxied
+      # - --cloudflare-proxied # https://github.com/kubernetes-sigs/external-dns/issues/1945
       #- --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
     policy: sync
     sources:
