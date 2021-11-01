@@ -223,7 +223,7 @@ spec:
     nodes:
       - name: "k8s-1"
         devices: # specific devices to use for storage can be specified for each node
-          - name: "sdc"
+          - name: "sdb"
         #       - name: "nvme01" # multiple osds can be created on high performance devices
         #         config:
         #           osdsPerDevice: "5"
@@ -233,7 +233,7 @@ spec:
         # deviceFilter: "^sdb"
       - name: "k8s-2"
         devices: # specific devices to use for storage can be specified for each node
-          - name: "sdc"
+          - name: "sdb"
         #       - name: "nvme01" # multiple osds can be created on high performance devices
         #         config:
         #           osdsPerDevice: "5"

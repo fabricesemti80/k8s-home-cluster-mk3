@@ -1,0 +1,19 @@
+---
+- hosts:
+    - "{{ target }}"
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+
+  tasks:
+    - name: Attach target to k8s1
+      community.general.open_iscsi:
+        login: yes
+        target: "{{ iSCSI }}"
+
+    - name: Set automatic login to the portal and target
+      community.general.open_iscsi:
+        login: true
+        portal: "{{ portal }}"
+        auto_portal_startup: true
+        target: "{{ iSCSI }}"

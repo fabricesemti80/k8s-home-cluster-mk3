@@ -7,9 +7,15 @@ env:
 vars:
   ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
   ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
+  # these are the iSCSI targets for each node
+  WORKER1: "k8s-1"
+  WORKER2: "k8s-2"
+  ISCSI1: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s1.c50b93"
+  ISCSI2: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s2.c50b93"
+  # this should be your NAS or iSCSI server
+  PORTAL: "192.168.1.3"
 
 tasks:
-
   deps:
     desc: Upgrade Ansible galaxy deps
     dir: provision/ansible
@@ -69,3 +75,11 @@ tasks:
     dir: provision/ansible
     cmds:
       - "ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml -a '/usr/bin/systemctl poweroff' --become"
+
+  iscsi:
+    desc: configure iscsi targets
+    dir: provision/ansible
+    cmds:
+      # duplicate these lines for each host
+      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/iscsi.yml --extra-vars 'target={{.WORKER1}} portal={{.PORTAL}} iSCSI={{.ISCSI1}}'"
+      - "ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml {{.ANSIBLE_PLAYBOOK_DIR}}/iscsi.yml --extra-vars 'target={{.WORKER2}} portal={{.PORTAL}} iSCSI={{.ISCSI2}}'"
