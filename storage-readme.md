@@ -1,16 +1,14 @@
 # How to configure Ceph-Rook
 
-## References
+## :bricks: Manual tasks
 
-https://computingforgeeks.com/how-to-deploy-rook-ceph-storage-on-kubernetes-cluster/
-
-* Ensure to remove ceph datadir before install (check what is the path in the cluster.yaml  file at dataDirHostPath:  value)
+  **Ensure to remove ceph datadir before install (check what is the path in the cluster.yaml  file at dataDirHostPath:  value) if you ever had rook on the worker nodes!**
 
 ```sh
 sudo rm -r /var/lib/rook -f
 ```
 
-* The storage disks allso need to be "zapped" - https://github.com/rook/rook/issues/3116
+* The storage disks allso need to be "zapped"
 
 ```sh
 #!/usr/bin/env bash
@@ -20,21 +18,13 @@ DISK="/dev/sdb"
 sgdisk --zap-all $DISK
 ```
 
-## iSCSI
-
-https://linuxhint.com/iscsi_storage_server_ubuntu/
+## 🧑‍💼 iSCSI reference (manual setup)
 
 * Set target connection automatic
 
-https://askubuntu.com/questions/499246/iscsi-auto-startup-at-boot-14-04
+* Manage OSD-s (from toolbox pod)
 
-* Help to manage OSD-s (from toolbox pod)
-
-https://docs.ceph.com/en/latest/rados/operations/add-or-rm-osds/
-
-### Using Ansible
-
-https://docs.ansible.com/ansible/latest/collections/community/general/open_iscsi_module.html
+### 🤖 iSCSI reference (Ansible)
 
 * make sure the module is installed
   
@@ -77,3 +67,29 @@ ubuntu@k8s-2:~$
 (in my case sdb is an 500 GB iSCSI disk)
 
 *This should be done **before** the cluster install!*
+
+## 📋 Access dashboard
+
+Once Rook is installed, retrieve pw
+
+```sh
+kubectl -n rook-ceph get secret rook-ceph-dashboard-password -o jsonpath="{['data']['password']}" | base64 --decode && echo
+```
+
+Then access it using 'admin' + this password
+
+## References
+
+<https://github.com/rook/rook/blob/master/Documentation/ceph-cluster-crd.md>
+
+<https://computingforgeeks.com/how-to-deploy-rook-ceph-storage-on-kubernetes-cluster/>
+
+<https://github.com/rook/rook/issues/3116>
+
+<https://linuxhint.com/iscsi_storage_server_ubuntu/>
+
+<https://askubuntu.com/questions/499246/iscsi-auto-startup-at-boot-14-04>
+
+<https://docs.ceph.com/en/latest/rados/operations/add-or-rm-osds/>
+
+<https://docs.ansible.com/ansible/latest/collections/community/general/open_iscsi_module.html>

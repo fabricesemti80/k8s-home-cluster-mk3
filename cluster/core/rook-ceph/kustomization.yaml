@@ -7,3 +7,4 @@ resources:
   - cluster.yaml
   - toolbox.yaml
   - dashboard-loadbalancer.yaml
+  - filesystem.yaml
