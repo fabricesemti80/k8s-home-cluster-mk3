@@ -8,3 +8,4 @@ resources:
   - toolbox.yaml
   - dashboard-loadbalancer.yaml
   - filesystem.yaml
+  - storageclass.yaml
