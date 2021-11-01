@@ -33,7 +33,7 @@ spec:
             key: api-key
     extraArgs:
       - --cloudflare-proxied
-      - --annotation-filter=external-dns/is-public in (true)
+      #- --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
     policy: sync
     sources:
       - ingress
