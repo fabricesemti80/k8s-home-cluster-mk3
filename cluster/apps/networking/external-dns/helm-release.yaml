@@ -1,90 +1,194 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: external-dns
-#   namespace: networking
-# spec:
-#   strategy:
-#     type: Recreate
-#   selector:
-#     matchLabels:
-#       app: external-dns
-#   template:
-#     metadata:
-#       labels:
-#         app: external-dns
-#     spec:
-#       containers:
-#         - name: external-dns
-#           image: k8s.gcr.io/external-dns/external-dns:v0.7.6
-#           args:
-#             - --source=service # ingress is also possible
-#             - --domain-filter="${SECRET_DOMAIN}" # (optional) limit to only example.com domains; change to match the zone created above.
-#             # - --zone-id-filter=023e105f4ecef8ad9ca31a8372d0c353 # (optional) limit to a specific zone.
-#             - --provider=cloudflare
-#             - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
-#           env:
-#             - name: CF_API_EMAIL
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: cloudflare-creds
-#                   key: email
-#             - name: CF_API_KEY
-#               valueFrom:
-#                 secretKeyRef:
-#                   name: cloudflare-creds
-#                   key: api-key
 ---
-#! ref: https://git.app.uib.no/caleno/helm-charts/-/tree/9efca36141e4f02fed311644e5dac44b443a2df5/stable/external-dns
+#! https://raw.githubusercontent.com/xUnholy/k8s-gitops/main/k8s/namespaces/base/network-system/external-dns/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: external-dns
-  namespace: networking
+  namespace: network-system
 spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://kubernetes-sigs.github.io/external-dns
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
       chart: external-dns
-      version: 1.4.0
+      version: 5.4.15
       sourceRef:
         kind: HelmRepository
-        name: external-dns-charts
+        name: bitnami-charts
         namespace: flux-system
-      interval: 5m
+      interval: 10m
+  test:
+    enable: false # Enable helm test
+  install:
+    remediation: # perform remediation when helm install fails
+      retries: 3
+  upgrade:
+    remediation: # perform remediation when helm upgrade fails
+      retries: 3
+      remediateLastFailure: true # remediate the last failure, when no retries remain
+    cleanupOnFail: true
+  rollback:
+    timeout: 10m
+    recreate: true
+    cleanupOnFail: true
   values:
-    interval: 5m
-    policy: upsert-only #!
-    logLevel: debug
+    image:
+      registry: docker.io
+      repository: raspbernetes/external-dns
+      tag: v0.7.4
+      pullPolicy: IfNotPresent
     provider: cloudflare
-    env:
-      - name: CF_API_EMAIL
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare-creds
-            key: email
-      - name: CF_API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare-creds
-            key: api-key
-    extraArgs:
-      - --cloudflare-proxied
-      #- --provider=cloudflare
-      #- --source=ingress # ingress service  is also possible
-      - --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
-    #policy: sync # Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
+    policy: upsert-only
+    # Cannot perform sync due to it removing other cluster originated records
+    # policy: sync
+    registry: "txt"
+    replicas: 1
+    logLevel: debug
+    rbac:
+      create: true
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: false
+    crd:
+      create: true
     sources:
-      - ingress
+      # Disable service and ingress to avoid exposing services externally that are not routed through istio
       - service
-    # txtPrefix: "k8s."
-    txtOwnerId: "default"
+      - ingress
+      - crd
+      # - istio-virtualservice
+      # Disable istio gateway as it adds a wildcard CNAME which is not able to be proxied in cloudflare
+      # - istio-gateway
     domainFilters:
-      - "${SECRET_DOMAIN}"
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 25m
-      limits:
-        memory: 250Mi
+      - raspbernetes.com
+    annotationFilter: "external-dns.alpha.kubernetes.io/external=true"
+    cloudflare:
+      secretName: "cloudflare-creds" # "cloudflare-external-dns"
+      #email: "michaelfornaro@gmail.com"
+      proxied: true
+# ---
+# #! refs:
+# #! https://raw.githubusercontent.com/xUnholy/k8s-gitops/main/k8s/namespaces/base/network-system/external-dns/helmrelease.yaml
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: external-dns
+#   namespace: networking
+# spec:
+#   interval: 5m
+#   chart:
+#     spec:
+#       # renovate: registryUrl=https://charts.bitnami.com/bitnami
+#       chart: external-dns
+#       version: 5.4.15
+#       sourceRef:
+#         kind: HelmRepository
+#         name: bitnami-charts
+#         namespace: flux-system
+#       interval: 10m
+#   test:
+#     enable: false # Enable helm test
+#   install:
+#     remediation: # perform remediation when helm install fails
+#       retries: 3
+#   upgrade:
+#     remediation: # perform remediation when helm upgrade fails
+#       retries: 3
+#       remediateLastFailure: true # remediate the last failure, when no retries remain
+#     cleanupOnFail: true
+#   rollback:
+#     timeout: 10m
+#     recreate: true
+#     cleanupOnFail: true
+#   values:
+#     image:
+#       registry: docker.io
+#       repository: raspbernetes/external-dns
+#       tag: v0.7.4
+#       pullPolicy: IfNotPresent
+#     provider: cloudflare
+#     policy: upsert-only
+#     # Cannot perform sync due to it removing other cluster originated records
+#     # policy: sync
+#     registry: "txt"
+#     replicas: 1
+#     logLevel: debug
+#     rbac:
+#       create: true
+#     metrics:
+#       enabled: true
+#       serviceMonitor:
+#         enabled: false
+#     crd:
+#       create: true
+#     sources:
+#       # Disable service and ingress to avoid exposing services externally that are not routed through istio
+#       - service
+#       - ingress
+#       - crd
+#       #- istio-virtualservice
+#       # Disable istio gateway as it adds a wildcard CNAME which is not able to be proxied in cloudflare
+#       # - istio-gateway
+#     domainFilters:
+#       - "${SECRET_DOMAIN}"
+#     annotationFilter: "external-dns.alpha.kubernetes.io/external=true"
+#     cloudflare:
+#       secretName: "cloudflare-creds" #"cloudflare-external-dns"
+#       email: "emilfabrice@gmail.com"
+#       proxied: true
+# # ---
+# # #! refs:
+# # #! https://git.app.uib.no/caleno/helm-charts/-/tree/9efca36141e4f02fed311644e5dac44b443a2df5/stable/external-dns
+# # #! https://github.com/kubernetes-sigs/external-dns
+# # apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# # kind: HelmRelease
+# # metadata:
+# #   name: external-dns
+# #   namespace: networking
+# # spec:
+# #   interval: 5m
+# #   chart:
+# #     spec:
+# #       # renovate: registryUrl=https://kubernetes-sigs.github.io/external-dns
+# #       chart: external-dns
+# #       version: 1.4.0
+# #       sourceRef:
+# #         kind: HelmRepository
+# #         name: external-dns-charts
+# #         namespace: flux-system
+# #       interval: 5m
+# #   values:
+# #     interval: 5m
+# #     policy: upsert-only #! Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
+# #     logLevel: debug
+# #     provider: cloudflare
+# #     env:
+# #       - name: CF_API_EMAIL
+# #         valueFrom:
+# #           secretKeyRef:
+# #             name: cloudflare-creds
+# #             key: email
+# #       - name: CF_API_KEY
+# #         valueFrom:
+# #           secretKeyRef:
+# #             name: cloudflare-creds
+# #             key: api-key
+# #     extraArgs:
+# #       - --cloudflare-proxied
+# #       #- --provider=cloudflare
+# #       #- --source=ingress # ingress service  is also possible
+# #       - --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+# #     sources:
+# #       - ingress
+# #       - service
+# #     # txtPrefix: "k8s."
+# #     txtOwnerId: "default"
+# #     domainFilters:
+# #       - "${SECRET_DOMAIN}"
+# #     resources:
+# #       requests:
+# #         memory: 100Mi
+# #         cpu: 25m
+# #       limits:
+# #         memory: 250Mi
