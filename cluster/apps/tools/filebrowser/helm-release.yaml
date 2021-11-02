@@ -35,13 +35,15 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          #! >>>
+          cert-manager.io/cluster-issuer: "letsencrypt-staging" #
           hajimari.io/appName: "filebrowser"
           hajimari.io/enable: "true"
           hajimari.io/icon: "web"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
           external-dns/is-public: "true"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          #! <<<
           # hajimari.io/enable: "true"
           # hajimari.io/icon: "web-sync"
           # traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -53,6 +55,9 @@ spec:
         tls:
           - hosts:
               - "filebrowser.${SECRET_DOMAIN}"
+            #! >>>
+            secretName: "filebrowser-tls"
+            #! <<<
     persistence:
       config:
         enabled: true
