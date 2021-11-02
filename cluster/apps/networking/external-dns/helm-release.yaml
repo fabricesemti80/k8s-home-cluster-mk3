@@ -35,7 +35,7 @@ spec:
       - --cloudflare-proxied
       #- --provider=cloudflare
       #- --source=ingress # ingress service  is also possible
-      #- --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+      - --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
     policy: sync
     sources:
       - ingress
