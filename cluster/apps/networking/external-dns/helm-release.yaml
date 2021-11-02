@@ -1,51 +1,86 @@
----
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: external-dns
-  namespace: networking
 spec:
-  interval: 5m
-  chart:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns
+  template:
+    metadata:
+      labels:
+        app: external-dns
     spec:
-      # renovate: registryUrl=https://kubernetes-sigs.github.io/external-dns
-      chart: external-dns
-      version: 1.4.0
-      sourceRef:
-        kind: HelmRepository
-        name: external-dns-charts
-        namespace: flux-system
-      interval: 5m
-  values:
-    interval: 5m
-    logLevel: debug
-    provider: cloudflare
-    env:
-      - name: CF_API_EMAIL
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare-creds
-            key: email
-      - name: CF_API_KEY
-        valueFrom:
-          secretKeyRef:
-            name: cloudflare-creds
-            key: api-key
-    extraArgs:
-      - --cloudflare-proxied
-      #- --provider=cloudflare
-      #- --source=ingress # ingress service  is also possible
-      - --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
-    policy: sync
-    sources:
-      - ingress
-    txtPrefix: "k8s."
-    txtOwnerId: "default"
-    domainFilters:
-      - "${SECRET_DOMAIN}"
-    resources:
-      requests:
-        memory: 100Mi
-        cpu: 25m
-      limits:
-        memory: 250Mi
+      containers:
+        - name: external-dns
+          image: k8s.gcr.io/external-dns/external-dns:v0.7.6
+          args:
+            - --source=service # ingress is also possible
+            - --domain-filter="${SECRET_DOMAIN}" # (optional) limit to only example.com domains; change to match the zone created above.
+            # - --zone-id-filter=023e105f4ecef8ad9ca31a8372d0c353 # (optional) limit to a specific zone.
+            - --provider=cloudflare
+            - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
+          env:
+            - name: CF_API_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-creds
+                  key: email
+            - name: CF_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflare-creds
+                  key: api-key
+# ---
+# apiVersion: helm.toolkit.fluxcd.io/v2beta1
+# kind: HelmRelease
+# metadata:
+#   name: external-dns
+#   namespace: networking
+# spec:
+#   interval: 5m
+#   chart:
+#     spec:
+#       # renovate: registryUrl=https://kubernetes-sigs.github.io/external-dns
+#       chart: external-dns
+#       version: 1.4.0
+#       sourceRef:
+#         kind: HelmRepository
+#         name: external-dns-charts
+#         namespace: flux-system
+#       interval: 5m
+#   values:
+#     interval: 5m
+#     logLevel: debug
+#     provider: cloudflare
+#     env:
+#       - name: CF_API_EMAIL
+#         valueFrom:
+#           secretKeyRef:
+#             name: cloudflare-creds
+#             key: email
+#       - name: CF_API_KEY
+#         valueFrom:
+#           secretKeyRef:
+#             name: cloudflare-creds
+#             key: api-key
+#     extraArgs:
+#       - --cloudflare-proxied
+#       #- --provider=cloudflare
+#       #- --source=ingress # ingress service  is also possible
+#       - --annotation-filter=external-dns/is-public in (true) # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+#     policy: sync
+#     sources:
+#       - ingress
+#     txtPrefix: "k8s."
+#     txtOwnerId: "default"
+#     domainFilters:
+#       - "${SECRET_DOMAIN}"
+#     resources:
+#       requests:
+#         memory: 100Mi
+#         cpu: 25m
+#       limits:
+#         memory: 250Mi
