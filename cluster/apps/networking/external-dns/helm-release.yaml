@@ -55,6 +55,7 @@ spec:
       interval: 5m
   values:
     interval: 5m
+    policy: upsert-only #!
     logLevel: debug
     provider: cloudflare
     env:
@@ -76,6 +77,7 @@ spec:
     #policy: sync # Modify how DNS records are sychronized between sources and providers (options: sync, upsert-only )
     sources:
       - ingress
+      - service
     # txtPrefix: "k8s."
     # txtOwnerId: "default"
     domainFilters:

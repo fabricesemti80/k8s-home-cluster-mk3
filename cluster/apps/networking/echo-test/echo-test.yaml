@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: echo1
-  namespace: default
+  namespace: networking
 spec:
   ports:
     - port: 80
@@ -15,7 +15,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: echo1
-  namespace: default
+  namespace: networking
 spec:
   selector:
     matchLabels:
@@ -39,7 +39,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: echo2
-  namespace: default
+  namespace: networking
 spec:
   ports:
     - port: 80
@@ -74,7 +74,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: echo-ingress
-  namespace: default
+  namespace: networking
   #ingressClassName: "traefik"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
@@ -87,7 +87,7 @@ spec:
   tls:
     - hosts:
         - echo1.fabricesemti.net
-        - echo2.fabricesemti.net
+        # - echo2.fabricesemti.net
       secretName: echo-tls
   rules:
     - host: echo1.fabricesemti.net
@@ -96,9 +96,9 @@ spec:
           - backend:
               serviceName: echo1
               servicePort: 80
-    - host: echo2.fabricesemti.net
-      http:
-        paths:
-          - backend:
-              serviceName: echo2
-              servicePort: 80
+    # - host: echo2.fabricesemti.net
+    #   http:
+    #     paths:
+    #       - backend:
+    #           serviceName: echo2
+    #           servicePort: 80
