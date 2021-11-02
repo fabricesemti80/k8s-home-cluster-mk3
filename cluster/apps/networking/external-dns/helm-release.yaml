@@ -79,7 +79,7 @@ spec:
       - ingress
       - service
     # txtPrefix: "k8s."
-    # txtOwnerId: "default"
+    txtOwnerId: "default"
     domainFilters:
       - "${SECRET_DOMAIN}"
     resources:
