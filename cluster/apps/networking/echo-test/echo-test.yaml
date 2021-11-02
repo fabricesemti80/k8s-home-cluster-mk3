@@ -75,10 +75,13 @@ kind: Ingress
 metadata:
   name: echo-ingress
   namespace: networking
-  #ingressClassName: "traefik"
+  ingressClassName: "traefik"
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
     #!
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    hajimari.io/appName: "filebrowser"
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "web"
     external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
     external-dns/is-public: "true"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
@@ -86,11 +89,11 @@ metadata:
 spec:
   tls:
     - hosts:
-        - echo1.fabricesemti.net
+        - "echo1.${SECRET_DOMAIN}"
         # - echo2.fabricesemti.net
       secretName: echo-tls
   rules:
-    - host: echo1.fabricesemti.net
+    - host: "echo1.${SECRET_DOMAIN}"
       http:
         paths:
           - backend:
