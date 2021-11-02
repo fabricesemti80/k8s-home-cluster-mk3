@@ -24,7 +24,7 @@ spec:
       FB_ROOT: "/media"
       FB_LOG: "stdout"
       FB_NOAUTH: "true"
-      TZ: "Europe/GMT"
+      TZ: "Europe/London"
     service:
       main:
         ports:
@@ -33,9 +33,9 @@ spec:
     ingress:
       main:
         enabled: true
+        #! >>>        
         ingressClassName: "traefik"
         annotations:
-          #! >>>
           cert-manager.io/cluster-issuer: "letsencrypt-staging" #
           hajimari.io/appName: "filebrowser"
           hajimari.io/enable: "true"
