@@ -33,20 +33,20 @@ spec:
     ingress:
       main:
         enabled: true
-        #! >>>        
         ingressClassName: "traefik"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-staging" #
+          #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          #? traefik-specifics
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/appName: "filebrowser"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "web"
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+          hajimari.io/icon: "folder-open"
+          #? external DNS - if need to be accessed via Internet (using CloudFlare)
+          #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          #! <<<
-          # hajimari.io/enable: "true"
-          # hajimari.io/icon: "web-sync"
-          # traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "filebrowser.${SECRET_DOMAIN}"
             paths:
@@ -55,9 +55,8 @@ spec:
         tls:
           - hosts:
               - "filebrowser.${SECRET_DOMAIN}"
-            #! >>>
+            #? needed for ingress!
             secretName: "filebrowser-tls"
-            #! <<<
     persistence:
       config:
         enabled: true
