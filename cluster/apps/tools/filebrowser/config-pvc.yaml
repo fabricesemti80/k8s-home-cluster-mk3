@@ -9,8 +9,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  #storageClassName: local-path
-  storageClassName: rook-cephfs
   resources:
     requests:
       storage: 1Gi
+  storageClassName: rook-cephfs

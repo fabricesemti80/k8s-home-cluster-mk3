@@ -17,14 +17,14 @@ spec:
   values:
     image:
       repository: filebrowser/filebrowser
-      tag: v2.17.2
+      tag: v2.18.0
     nameOverride: filebrowser
     env:
       FB_DATABASE: "/config/filebrowser.db"
       FB_ROOT: "/media"
       FB_LOG: "stdout"
       FB_NOAUTH: "true"
-      TZ: "Europe/London"
+      TZ: "Europe/GMT"
     service:
       main:
         ports:
@@ -35,13 +35,16 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          hajimari.io/appName: "filebrowser"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "web"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
           external-dns/is-public: "true"
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          #cert-manager.io/cluster-issuer: "letsencrypt-staging"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "web-sync"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          # hajimari.io/enable: "true"
+          # hajimari.io/icon: "web-sync"
+          # traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "filebrowser.${SECRET_DOMAIN}"
             paths:
@@ -50,7 +53,6 @@ spec:
         tls:
           - hosts:
               - "filebrowser.${SECRET_DOMAIN}"
-            secretName: "filebrowser-tls"
     persistence:
       config:
         enabled: true
@@ -61,7 +63,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_ADDR}"
-            path: /PersistentVolumeClaims/Media
+            path: /tycho/Media
         mountPath: /media
         readOnly: true
     resources:
