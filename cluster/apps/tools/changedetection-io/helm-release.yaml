@@ -36,7 +36,7 @@ spec:
           #? traefik-specifics
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
-          cert-manager.io/cluster-issuer: "letsencrypt-staging"
+          cert-manager.io/cluster-issuer: "letsencrypt-production"
           #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/enable: "true"
           hajimari.io/icon: "web-sync"
