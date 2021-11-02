@@ -106,14 +106,14 @@ spec:
           hajimari.io/icon: "weather-sunset"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "hajimari.${SECRET_DOMAIN}"
+          - host: "haji.${SECRET_DOMAIN}" # temporary, should be hajimari
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "hajimari.${SECRET_DOMAIN}"
-            secretName: "hajimari-tls"
+              - "haji.${SECRET_DOMAIN}" # temporary, should be hajimari
+            secretName: "haji-tls" # temporary, should be hajimari
     persistence:
       data:
         enabled: true
