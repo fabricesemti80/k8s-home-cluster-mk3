@@ -123,6 +123,7 @@ spec:
               - "hajimari.${SECRET_DOMAIN}"
             #? needed for ingress!
             secretName: "hajimari-tls"
+    persistence:
       data:
         enabled: true
         existingClaim: hajimari-config
