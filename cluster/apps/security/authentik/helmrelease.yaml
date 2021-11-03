@@ -52,7 +52,7 @@ spec:
       ingressClassName: "traefik"
       annotations:
         #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
-        cert-manager.io/cluster-issuer: "letsencrypt-staging"
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
         #? traefik-specifics
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
@@ -75,6 +75,8 @@ spec:
       tls:
         - hosts:
             - "id.${SECRET_DOMAIN}"
+            #? needed for ingress!
+          secretName: "authentik-tls"
     postgresql:
       enabled: true
       postgresqlUsername: authentik
