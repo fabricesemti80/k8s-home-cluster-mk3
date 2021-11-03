@@ -38,7 +38,7 @@ spec:
       chart: <name|path>
       version: "4.0.x"
       sourceRef:
-        kind: HelmRepository # acceptable values:  <HelmRepository|GitRepository|Bucket>
+        kind: GitRepository # acceptable values:  <HelmRepository|GitRepository|Bucket>
         name: podinfo
         namespace: flux-system
       interval: 1m
