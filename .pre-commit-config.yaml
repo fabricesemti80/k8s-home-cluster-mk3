@@ -19,6 +19,7 @@ repos:
       - id: end-of-file-fixer
       - id: mixed-line-ending
       - id: check-yaml
+        #? https://stackoverflow.com/questions/46074336/precommit-check-yaml-error-expected-a-single-document-in-the-stream
         args: [--allow-multiple-documents]
       - id: check-case-conflict
   - repo: https://github.com/Lucas-C/pre-commit-hooks
