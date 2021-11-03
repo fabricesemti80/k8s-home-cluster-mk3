@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: podinfo
-  namesoace: default
+  namespace: default
 spec:
   minReadySeconds: 3
   revisionHistoryLimit: 5
