@@ -5,3 +5,4 @@ resources:
   - external-dns
   - cloudflare-ddns
   - wildcard-certificate
+  - authentik
