@@ -1,30 +1,30 @@
 ---
 #? https://fluxcd.io/docs/guides/helmreleases/
-# ---
-# apiVersion: source.toolkit.fluxcd.io/v1beta1
-# kind: HelmRepository
-# metadata:
-#   name: podinfo
-#   namespace: flux-system
-# spec:
-#   interval: 1m
-#   url: https://stefanprodan.github.io/podinfo
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta1
-kind: GitRepository
+kind: HelmRepository
 metadata:
   name: podinfo
   namespace: flux-system
 spec:
   interval: 1m
-  url: https://github.com/stefanprodan/podinfo
-  ref:
-    branch: master
-  # ignore: |
-  #   # exclude all
-  #   /*
-  #   # include charts directory
-  #   !/charts/
+  url: https://stefanprodan.github.io/podinfo
+# ---
+# apiVersion: source.toolkit.fluxcd.io/v1beta1
+# kind: GitRepository
+# metadata:
+#   name: podinfo
+#   namespace: flux-system
+# spec:
+#   interval: 1m
+#   url: https://github.com/stefanprodan/podinfo
+#   ref:
+#     branch: master
+#   # ignore: |
+#   #   # exclude all
+#   #   /*
+#   #   # include charts directory
+#   #   !/charts/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
@@ -35,10 +35,10 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: <name|path>
-      version: "4.0.x"
+      chart: podinfo/podinfo #& <name|path>
+      version: "6.0.3"
       sourceRef:
-        kind: GitRepository # acceptable values:  <HelmRepository|GitRepository|Bucket>
+        kind: HelmRepository #& acceptable values:  <HelmRepository|GitRepository|Bucket>
         name: podinfo
         namespace: flux-system
       interval: 1m
