@@ -246,7 +246,7 @@ In order to use Terraform and `cert-manager` with the Cloudflare DNS challenge y
 # note:
 # https://github.com/k8s-at-home/template-cluster-k3s/issues/115
 # edit this file: ./provision/ansible/inventory/group_vars/kubernetes/k3s.yml
-# set k3s_use_unsupported_config: false --> 
+# set k3s_use_unsupported_config: false -->
 k3s_use_unsupported_config: true
 ```
 
@@ -259,7 +259,7 @@ k3s_use_unsupported_config: true
 4. If everything goes as planned you should see Ansible running the k3s install Playbook against your nodes.
 
 5. Verify the nodes are online
-   
+
 ```sh
 kubectl --kubeconfig=./provision/kubeconfig get nodes
 # NAME           STATUS   ROLES                       AGE     VERSION

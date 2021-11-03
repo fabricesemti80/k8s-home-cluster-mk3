@@ -1,5 +1,9 @@
 ---
+#? https://pre-commit.com/#plugins
 fail_fast: false
+exclude: "^tmpl"
+default_language_version:
+  python: python3.9.7
 repos:
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.26.3
@@ -14,6 +18,9 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
       - id: mixed-line-ending
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: check-case-conflict
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.1.10
     hooks:

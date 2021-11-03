@@ -27,9 +27,9 @@ sgdisk --zap-all $DISK
 ### 🤖 iSCSI reference (Ansible)
 
 * make sure the module is installed
-  
+
 * get the iscsi target names (prepare them on your iscsi server, for me this is a Qnap NAS)
-  
+
 * update the iSCSI-related settings in the Ansible task file (./.taskfiles/ansible.yml)
 
 ```yaml
