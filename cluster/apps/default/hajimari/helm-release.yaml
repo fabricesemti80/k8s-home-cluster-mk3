@@ -27,10 +27,16 @@ spec:
           - default
           - networking
       name: "you"
+      # #? <template app start>
+      # customApps:
+      #   - name: Some External Cluster Service
+      #     url: http://192.168.1.100:5000
+      #     icon: test-tube
+      # #? </template app end>
       customApps:
-        - name: Some External Cluster Service
-          url: http://192.168.1.100:5000
-          icon: test-tube
+        - name: Ceph Dashboard
+          url: https://192.168.1.201:8443
+          icon: harddisk
       groups:
         - name: Communicate
           links:
