@@ -37,6 +37,9 @@ spec:
         - name: Ceph Dashboard
           url: https://192.168.1.201:8443
           icon: harddisk
+        - name: change-detection
+          url: https://change-detection.fabricesemti.net
+          icon: newspaper-variant-outline
       groups:
         - name: Communicate
           links:

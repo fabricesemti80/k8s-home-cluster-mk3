@@ -1,4 +1,5 @@
 ---
+#!ref: https://goauthentik.io/docs/installation/kubernetes
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -46,7 +47,6 @@ spec:
       - name: media
         persistentVolumeClaim:
           claimName: authentik-media-v1
-
     ingress:
       enabled: true
       ingressClassName: "traefik"
