@@ -6,7 +6,7 @@ metadata:
   namespace: networking
   annotations:
     #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
     #? traefik-specifics
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
