@@ -10,7 +10,7 @@ metadata:
     #? traefik-specifics
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
-    hajimari.io/appName: "traefik"
+    hajimari.io/appName: "traefik-dashboard"
     hajimari.io/enable: "true"
     hajimari.io/icon: "web"
     #? external DNS - if need to be accessed via Internet (using CloudFlare)
@@ -21,17 +21,17 @@ spec:
   ingressClassName: "traefik"
   tls:
     - hosts:
-        - "traefik.${SECRET_DOMAIN}"
+        - "traefik-dashboard.${SECRET_DOMAIN}"
       #? needed for ingress!
       secretName: "traefik-dashboard-tls"
   rules:
-    - host: "traefik.${SECRET_DOMAIN}"
+    - host: "traefik-dashboard.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: traefik
+                name: traefik-dashboard
                 port:
                   number: 9000
