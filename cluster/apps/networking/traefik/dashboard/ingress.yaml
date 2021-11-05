@@ -32,6 +32,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: traefik-dashboard
+                name: traefik
                 port:
                   number: 9000
