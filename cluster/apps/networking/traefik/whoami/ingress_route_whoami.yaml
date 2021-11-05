@@ -13,7 +13,7 @@ spec:
       match: Host(`whoami-ir.${SECRET_DOMAIN}`)
       middlewares:
         - name: ak-outpost-authentik-embedded-outpost
-          namespace: authentik
+          namespace: security
       services:
         - name: whoami
           port: 80
