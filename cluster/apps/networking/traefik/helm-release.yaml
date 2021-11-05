@@ -5,6 +5,7 @@ metadata:
   name: traefik
   namespace: networking
 spec:
+  releaseName: traefik
   interval: 5m
   chart:
     spec:
@@ -46,6 +47,8 @@ spec:
       dashboard:
         enabled: false
     globalArguments:
+      - "--providers.kubernetescrd.allowCrossNamespace=true"
+      - "--global.checknewversion"
       - "--api.insecure=true"
       - "--serverstransport.insecureskipverify=true"
       - "--providers.kubernetesingress.ingressclass=traefik"
