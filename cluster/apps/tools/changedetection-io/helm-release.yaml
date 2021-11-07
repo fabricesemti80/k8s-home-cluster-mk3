@@ -44,6 +44,10 @@ spec:
           #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
+          #
+          ingress.kubernetes.io/auth-type: forward
+          ingress.kubernetes.io/auth-url: http://traefik-forward-auth.kube-system.svc.cluster.local
+          ingress.kubernetes.io/auth-response-headers: X-Forwarded-User
         hosts:
           - host: "change-detection.${SECRET_DOMAIN}"
             paths:
