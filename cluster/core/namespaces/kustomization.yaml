@@ -13,4 +13,4 @@ resources:
   - tools.yaml
   - media.yaml
   - downloads.yaml
-  - security.yaml
+  #- security.yaml
