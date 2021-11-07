@@ -66,10 +66,10 @@ spec:
               mountPath: /config
               subPath: traefik-forward-auth.ini
 
-      # volumes:
-      #   - name: configs
-      #     configMap:
-      #       name: configs
-      #   - name: traefik-forward-auth-secrets
-      #     secret:
-      #       secretName: traefik-forward-auth-secrets
+      volumes:
+        - name: configs
+          configMap:
+            name: configs
+        - name: traefik-forward-auth-secrets
+          secret:
+            secretName: traefik-forward-auth-secrets
