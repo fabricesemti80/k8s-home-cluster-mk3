@@ -30,7 +30,7 @@ spec:
             port: 5000
     ingress:
       main:
-        enabled: true
+        enabled: false # true
         ingressClassName: "traefik"
         annotations:
           #? traefik-specifics
