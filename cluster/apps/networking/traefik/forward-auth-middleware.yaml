@@ -20,7 +20,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: authentik-admin-ingress
-
+  namespace: security
 spec:
   entryPoints:
     - web
@@ -39,6 +39,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: change-detection
+  namespace: security
 spec:
   entryPoints:
     - web
