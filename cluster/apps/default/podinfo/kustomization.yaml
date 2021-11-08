@@ -5,3 +5,4 @@ resources:
   - hpa.yaml
   - deployment.yaml
   - service.yaml
+  - ingress-route.yaml
