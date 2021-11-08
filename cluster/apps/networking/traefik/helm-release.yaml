@@ -49,7 +49,7 @@ spec:
       # spec:
       #   routes:
       #     - kind: Rule
-      #       match: "Host(`id.fabricesemti.net)"
+      #       match: "Host(`id.${SECRET_DOMAIN})"
       #       middlewares:
       #         - name: authentik
       #           namespace: security
@@ -57,7 +57,7 @@ spec:
       #       services: # Unchanged
       #     # This part is only required for single-app setups
       #     - kind: Rule
-      #       match: "Host(`id.fabricesemti.net) && PathPrefix(`/akprox/`)"
+      #       match: "Host(`<my domain>) && PathPrefix(`/akprox/`)"
       #       priority: 15
       #       services:
       #         - kind: Service

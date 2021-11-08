@@ -90,7 +90,6 @@ spec:
   tls:
     - hosts:
         - "echo1.${SECRET_DOMAIN}"
-        # - echo2.fabricesemti.net
       secretName: echo-tls
   rules:
     - host: "echo1.${SECRET_DOMAIN}"
@@ -99,9 +98,3 @@ spec:
           - backend:
               serviceName: echo1
               servicePort: 80
-    # - host: echo2.fabricesemti.net
-    #   http:
-    #     paths:
-    #       - backend:
-    #           serviceName: echo2
-    #           servicePort: 80
