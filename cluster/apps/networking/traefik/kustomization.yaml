@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - helm-release.yaml
   - dashboard
+  - forward-auth-middleware.yaml

@@ -46,6 +46,23 @@ spec:
     ingressRoute:
       dashboard:
         enabled: false
+      spec:
+        routes:
+          - kind: Rule
+            match: "Host(`id.fabricesemti.net)"
+            middlewares:
+              - name: authentik
+                namespace: security
+            priority: 10
+            services: # Unchanged
+          # This part is only required for single-app setups
+          - kind: Rule
+            match: "Host(`id.fabricesemti.net) && PathPrefix(`/akprox/`)"
+            priority: 15
+            services:
+              - kind: Service
+                name: authentik-outpost-example-outpost
+                port: 9000
     globalArguments:
       - "--providers.kubernetescrd.allowCrossNamespace=true"
       - "--global.checknewversion"
