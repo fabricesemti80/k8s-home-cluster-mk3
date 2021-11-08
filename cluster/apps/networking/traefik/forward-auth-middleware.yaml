@@ -30,7 +30,9 @@ spec:
         - name: authentik
           namespace: security
       priority: 10
-      services: # Unchanged
+      services:
+        - kind: Service
+          name: changedetection-io # Unchanged
     # # This part is only required for single-app setups
     # - kind: Rule
     #   match: "Host(`change-detection.fabricesemti.net`) && PathPrefix(`/akprox/`)"
