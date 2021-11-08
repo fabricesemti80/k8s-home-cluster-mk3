@@ -18,4 +18,5 @@ spec:
         - name: podinfo
           port: 9898
   tls:
+    secretName: podinfo-tls-secret
     certResolver: default
