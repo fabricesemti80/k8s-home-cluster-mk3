@@ -4,7 +4,7 @@ metadata:
   name: podinfo
   namespace: default
 spec:
-  type: LoadBalancer #ClusterIP
+  type: ClusterIP
   selector:
     app: podinfo
   ports:
