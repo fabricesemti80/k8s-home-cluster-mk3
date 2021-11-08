@@ -15,3 +15,40 @@ spec:
       - X-Forwarded-Email
       - X-Forwarded-Preferred-Username
       - X-Forwarded-User
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: authentik-admin-ingress
+
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`id.fabricesemti.net`)
+      kind: Rule
+      services:
+        - name: authentik
+          namespace: security
+          port: 80
+          scheme: http
+  tls: {}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: change-detection
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`change-detection.fabricesemti.net`)
+      kind: Rule
+      services:
+        - name: ak-outpost-authentik-embedded-outpost
+          namespace: default
+          port: 9000
+          scheme: http
+  tls: {}
