@@ -20,37 +20,60 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: authentik-admin-ingress
-  namespace: security
+  name: change-detection
+  namespace: tools
 spec:
-  entryPoints:
-    - web
-    - websecure
   routes:
-    - match: Host(`id.fabricesemti.net`)
-      kind: Rule
-      services:
+    - kind: Rule
+      match: "Host(`change-detection.fabricesemti.net`)"
+      middlewares:
         - name: authentik
           namespace: security
-          port: 80
-          scheme: http
-  tls: {}
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: change-detection
-  namespace: security
-spec:
-  entryPoints:
-    - web
-    - websecure
-  routes:
-    - match: Host(`change-detection.fabricesemti.net`)
-      kind: Rule
-      services:
-        - name: ak-outpost-authentik-embedded-outpost
-          namespace: default
-          port: 9000
-          scheme: http
-  tls: {}
+      priority: 10
+      services: # Unchanged
+    # # This part is only required for single-app setups
+    # - kind: Rule
+    #   match: "Host(`change-detection.fabricesemti.net`) && PathPrefix(`/akprox/`)"
+    #   priority: 15
+    #   services:
+    #     - kind: Service
+    #       name: authentik-outpost-example-outpost
+    #       port: 5000
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: authentik-admin-ingress
+#   namespace: security
+# spec:
+#   entryPoints:
+#     - web
+#     - websecure
+#   routes:
+#     - match: Host(`id.fabricesemti.net`)
+#       kind: Rule
+#       services:
+#         - name: authentik
+#           namespace: security
+#           port: 80
+#           scheme: http
+#   tls: {}
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: change-detection
+#   namespace: security
+# spec:
+#   entryPoints:
+#     - web
+#     - websecure
+#   routes:
+#     - match: Host(`change-detection.fabricesemti.net`)
+#       kind: Rule
+#       services:
+#         - name: ak-outpost-authentik-embedded-outpost
+#           namespace: default
+#           port: 9000
+#           scheme: http
+#   tls: {}
