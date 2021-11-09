@@ -125,12 +125,12 @@ The Git repository contains the following directories under `cluster` and are or
 - **crds** directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists
 - **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
 - **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
+- **network** directory (depends on **core**) is where your network applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
 
-```
+```md
 cluster
 ├── apps
 │   ├── default
-│   ├── networking
 │   └── system-upgrade
 ├── base
 │   └── flux-system
@@ -139,8 +139,10 @@ cluster
 │   ├── metallb-system
 │   ├── namespaces
 │   └── system-upgrade
-└── crds
-    └── cert-manager
+├── crds
+│    └── cert-manager
+└── network
+
 ```
 
 ## :rocket:&nbsp; Lets go!
