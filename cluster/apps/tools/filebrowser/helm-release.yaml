@@ -33,7 +33,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "nginx" # "traefik"
+        ingressClassName: "traefik"
         annotations:
           #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
           cert-manager.io/cluster-issuer: "letsencrypt-production"
