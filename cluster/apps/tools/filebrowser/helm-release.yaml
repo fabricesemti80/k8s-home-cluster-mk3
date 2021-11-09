@@ -26,7 +26,6 @@ spec:
       FB_NOAUTH: "true"
       TZ: "Europe/London"
     service:
-      #type: LoadBalancer
       main:
         ports:
           http:
