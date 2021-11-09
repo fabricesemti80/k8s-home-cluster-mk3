@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - alert.yaml
   - discord-provider.yaml
-  - discord-secret.sops.yaml
+  # - discord-secret.sops.yaml
