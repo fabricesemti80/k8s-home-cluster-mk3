@@ -21,7 +21,7 @@ spec:
     image:
       repository: "thomseddon/traefik-forward-auth"
       pullPolicy: IfNotPresent
-      tag: "1.0.6"
+      tag: "v2.2.0"
     logging:
       level: debug
       format: "text"
