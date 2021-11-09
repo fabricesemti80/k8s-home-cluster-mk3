@@ -15,5 +15,3 @@ xanmanning.k3s*
 .terraform.tfstate*
 terraform.tfstate*
 rook-ceph.json
-# TODO: review this
-/home/fabrice/k8s-home-cluster-mk3/cluster/apps/ingress-nginx/*
