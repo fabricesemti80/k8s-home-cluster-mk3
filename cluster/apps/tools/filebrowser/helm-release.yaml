@@ -38,7 +38,8 @@ spec:
           #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           #? traefik-specifics
-          #traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.entrypoints: websecure
+          traefik.ingress.kubernetes.io/router.middlewares: security-rfc1918-ips@kubernetescrd
           #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/appName: "filebrowser"
           hajimari.io/enable: "true"
