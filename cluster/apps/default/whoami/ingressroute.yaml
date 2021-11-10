@@ -20,4 +20,5 @@ spec:
       middlewares:
         - name: traefik-forward-auth
   tls:
-    certResolver: cloudflare # was 'default'
+    secretName: traefik-forward-auth-tls
+    #certResolver: cloudflare # was 'default'
