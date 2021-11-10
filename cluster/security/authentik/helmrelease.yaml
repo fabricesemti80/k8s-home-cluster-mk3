@@ -46,7 +46,7 @@ spec:
     volumes:
       - name: media
         persistentVolumeClaim:
-          claimName: authentik-media-v1
+          claimName: authentik-media
     ingress:
       enabled: true
       ingressClassName: "traefik"
