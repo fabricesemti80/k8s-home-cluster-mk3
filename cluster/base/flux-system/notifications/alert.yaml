@@ -26,42 +26,24 @@ spec:
   eventSeverity: info # error
   eventSources:
     - kind: HelmRelease
-      namespace: "apps"
-      name: "*"
-    - kind: HelmRelease
-      namespace: "base"
-      name: "*"
-    - kind: HelmRelease
-      namespace: "core"
-      name: "*"
-    - kind: HelmRelease
-      namespace: "crds"
-      name: "*"
-    - kind: HelmRelease
-      namespace: "network"
+      namespace: "*"
       name: "*"
     # - kind: HelmRelease
-    #   namespace: 'default'
-    #   name: '*'
+    #   namespace: "apps"
+    #   name: "*"
     # - kind: HelmRelease
-    #   namespace: 'home'
-    #   name: '*'
+    #   namespace: "base"
+    #   name: "*"
     # - kind: HelmRelease
-    #   namespace: 'media'
-    #   name: '*'
+    #   namespace: "core"
+    #   name: "*"
     # - kind: HelmRelease
-    #   namespace: 'logs'
-    #   name: '*'
+    #   namespace: "crds"
+    #   name: "*"
     # - kind: HelmRelease
-    #   namespace: 'monitoring'
-    #   name: '*'
+    #   namespace: "network"
+    #   name: "*"
     # - kind: HelmRelease
-    #   namespace: 'networking'
-    #   name: '*'
-    # - kind: HelmRelease
-    #   namespace: 'longhorn-system'
-    #   name: '*'
-    # - kind: HelmRelease
-    #   namespace: 'kube-system'
-    #   name: '*'
+    #   namespace: "security"
+    #   name: "*"
   suspend: false
