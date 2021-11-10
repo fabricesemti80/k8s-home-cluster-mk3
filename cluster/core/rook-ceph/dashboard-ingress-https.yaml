@@ -10,17 +10,26 @@ kind: Ingress
 metadata:
   name: rook-ceph-mgr-dashboard
   namespace: rook-ceph # namespace:cluster
+  ingressClassName: "traefik"
   annotations:
-    kubernetes.io/ingress.class: "traefik"
-    kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      proxy_ssl_verify off;
+    #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    #? traefik-specifics
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    #? external DNS - if need to be accessed via Internet (using CloudFlare)
+    #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+    external-dns/is-public: "true"
+    # kubernetes.io/ingress.class: "traefik"
+    # kubernetes.io/tls-acme: "true"
+    # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # nginx.ingress.kubernetes.io/server-snippet: |
+    #   proxy_ssl_verify off;
 spec:
   tls:
     - hosts:
         - "rook-ceph.${SECRET_DOMAIN}"
-      secretName: "rook-ceph.${SECRET_DOMAIN}"
+      secretName: rook-ceph-tls
   rules:
     - host: "rook-ceph.${SECRET_DOMAIN}"
       http:
