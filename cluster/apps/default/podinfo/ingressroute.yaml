@@ -13,7 +13,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`podinfo.fabricesemti.net`)
+      match: Host(`podinfo.${SECRET_DOMAIN}`)
       middlewares:
         - name: authentik
           namespace: security
@@ -22,6 +22,7 @@ spec:
         - name: podinfo
           port: 9898
   tls:
+    []
     # # use an empty tls object for TLS with Let's Encrypt
     # secretName: podinfo-tls-secret
     # certResolver: default
