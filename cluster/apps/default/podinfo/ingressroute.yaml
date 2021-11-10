@@ -22,7 +22,7 @@ spec:
         - name: podinfo
           port: 9898
   tls:
-    []
+    secretName: podinfo-tls-secret
     # # use an empty tls object for TLS with Let's Encrypt
     # secretName: podinfo-tls-secret
     # certResolver: default
