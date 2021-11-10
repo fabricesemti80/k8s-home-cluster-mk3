@@ -35,7 +35,7 @@ spec:
       # #? </template app end>
       customApps:
         - name: Ceph Dashboard
-          url: https://192.168.1.201:8443
+          url: https://rook-ceph.fabricesemti.net/ #https://192.168.1.201:8443
           icon: harddisk
         - name: change-detection
           url: "https://change-detection.${SECRET_DOMAIN}" #TODO: add back domain
