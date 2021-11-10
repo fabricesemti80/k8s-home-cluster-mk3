@@ -23,7 +23,7 @@ metadata:
   namespace: rook-ceph # namespace:operator
 data:
   # The logging level for the operator: INFO | DEBUG
-  ROOK_LOG_LEVEL: "INFO"
+  ROOK_LOG_LEVEL: "DEBUG"
 
   # Enable the CSI driver.
   # To run the non-default version of the CSI driver, see the override-able image properties in operator.yaml
@@ -447,7 +447,7 @@ spec:
 
             # The duration between discovering devices in the rook-discover daemonset.
             - name: ROOK_DISCOVER_DEVICES_INTERVAL
-              value: "60m"
+              value: "30m"
 
             # Whether to start pods as privileged that mount a host path, which includes the Ceph mon and osd pods.
             # Set this to true if SELinux is enabled (e.g. OpenShift) to workaround the anyuid issues.

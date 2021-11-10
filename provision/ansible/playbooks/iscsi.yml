@@ -6,12 +6,18 @@
   any_errors_fatal: true
 
   tasks:
-    - name: Attach target to k8s1
+    - name: Perform a discovery on "{{ portal }}" and show available target nodes
+      community.general.open_iscsi:
+        show_nodes: yes
+        discover: yes
+        portal: "{{ portal }}"
+
+    - name: Attach target "{{ iSCSI }}" to node
       community.general.open_iscsi:
         login: yes
         target: "{{ iSCSI }}"
 
-    - name: Set automatic login to the portal and target
+    - name: Set automatic login to the portal "{{ portal }}"  and target "{{ iSCSI }}" on node
       community.general.open_iscsi:
         login: true
         portal: "{{ portal }}"
