@@ -2,6 +2,7 @@
 ansible
 direnv
 flux
+fluxctl
 gnupg
 go-task
 ipcalc
@@ -15,3 +16,6 @@ kustomize
 pre-commit
 prettier
 kubectx
+dty1er/tap/kubecolor
+figlet
+lolcat

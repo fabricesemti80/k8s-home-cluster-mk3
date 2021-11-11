@@ -289,6 +289,11 @@ flux --kubeconfig=./provision/kubeconfig check --pre
 kubectl --kubeconfig=./provision/kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig=./provision/kubeconfig apply -f -
 ```
 
+~~Add this namespace to flu's default for convenience (for fluxctl)
+```sh
+$env:FLUX_FORWARD_NAMESPACE = "flux-system"
+```~~
+
 3. Add the Flux GPG key in-order for Flux to decrypt SOPS secrets
 
 ```sh
