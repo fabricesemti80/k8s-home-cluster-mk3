@@ -47,6 +47,8 @@ spec:
       dashboard:
         enabled: false
     globalArguments:
+      - "--log=true"
+      - "--log.level=DEBUG"
       - "--global.checknewversion"
       - "--api.insecure=true"
       - "--serverstransport.insecureskipverify=true"
