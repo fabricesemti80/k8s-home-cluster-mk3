@@ -27,18 +27,12 @@ spec:
           - default
           - networking
       name: "you"
-      # #? <template app start>
-      # customApps:
-      #   - name: Some External Cluster Service
-      #     url: http://192.168.1.100:5000
-      #     icon: test-tube
-      # #? </template app end>
       customApps:
         - name: Ceph Dashboard
-          url: https://rook-ceph.fabricesemti.net/ #https://192.168.1.201:8443
+          url: https://rook-ceph.fabricesemti.net/
           icon: harddisk
         - name: change-detection
-          url: "https://change-detection.${SECRET_DOMAIN}" #TODO: add back domain
+          url: "https://change-detection.${SECRET_DOMAIN}"
           icon: newspaper-variant-outline
       groups:
         - name: Communicate
@@ -114,6 +108,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           #? traefik-specifics
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: default-traefik-forward-auth@kubernetescrd #! oauth
           #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/appName: "hajimari"
           hajimari.io/enable: "true"

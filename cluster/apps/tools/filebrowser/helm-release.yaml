@@ -39,7 +39,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           #? traefik-specifics
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: default-traefik-forward-auth@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: default-traefik-forward-auth@kubernetescrd #! oauth
           #traefik.ingress.kubernetes.io/router.middlewares: security-rfc1918@kubernetescrd # this would restrict it to be accessible from internal IP-s only
           #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/appName: "filebrowser"

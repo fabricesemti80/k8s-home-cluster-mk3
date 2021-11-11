@@ -35,7 +35,7 @@ spec:
         annotations:
           #? traefik-specifics
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: default-traefik-forward-auth@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: default-traefik-forward-auth@kubernetescrd #! oauth
           #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
