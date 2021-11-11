@@ -98,4 +98,4 @@ spec:
       # targetMemoryUtilizationPercentage: 80
   valuesFrom:
     - kind: Secret
-      name: "traefik-forward-auth-secre"
+      name: "traefik-forward-auth-secret"
