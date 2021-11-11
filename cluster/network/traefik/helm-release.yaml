@@ -47,7 +47,6 @@ spec:
       dashboard:
         enabled: false
     globalArguments:
-      - "--providers.kubernetescrd.allowCrossNamespace=true"
       - "--global.checknewversion"
       - "--api.insecure=true"
       - "--serverstransport.insecureskipverify=true"
@@ -59,26 +58,13 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.ip=${METALLB_TRAEFIK_ADDR}"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
-      #TODO test
-      # - "--entryPoints.http.address=:80"
-      # - "--entryPoints.http.http.redirections.entryPoint.to=https"
-      # - "--entryPoints.http.http.redirections.entryPoint.scheme=https"
-      #!
-      # - "--entryPoints.websecure.address=:443"
-      # - "--entrypoints.websecure.http.middlewares=default-traefik-forward-auth"
-      #TODO test
+      - "--providers.kubernetescrd.allowCrossNamespace=true"
     ports:
       traefik:
         expose: true
       web:
         redirectTo: websecure
       websecure:
-        ###### TODO - test - https://doc.traefik.io/traefik/routing/entrypoints/
-        address: ":443"
-        http:
-          middlewares:
-            - default-traefik-forward-auth
-        ##### TODO - test
         tls:
           enabled: true
           options: "default"
