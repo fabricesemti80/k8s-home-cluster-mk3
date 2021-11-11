@@ -114,6 +114,8 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           #? traefik-specifics
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          #! oauth2 #!
+          traefik.ingress.kubernetes.io/router.middlewares: default-traefik-forward-auth@kubernetescrd
           #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/appName: "hajimari"
           hajimari.io/enable: "true"
