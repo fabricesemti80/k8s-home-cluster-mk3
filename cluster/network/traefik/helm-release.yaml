@@ -72,6 +72,9 @@ spec:
         port: 8082
         expose: true
         exposedPort: 8082
+      ping:
+        port: 8081
+        expose: true
     tlsOptions:
       default:
         minVersion: VersionTLS12
