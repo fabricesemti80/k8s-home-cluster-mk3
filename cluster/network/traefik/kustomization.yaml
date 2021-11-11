@@ -4,4 +4,4 @@ resources:
   - helm-release.yaml
   - dashboard
   - middleware
-  #- traefik-forward-auth
+  - traefik-forward-auth
