@@ -38,7 +38,7 @@ spec:
           url: https://rook-ceph.fabricesemti.net/ #https://192.168.1.201:8443
           icon: harddisk
         - name: change-detection
-          url: "https://change-detection.${SECRET_DOMAIN}" #TODO: add back domain
+          url: "https://change-detection.${SECRET_DOMAIN}"
           icon: newspaper-variant-outline
       groups:
         - name: Communicate
