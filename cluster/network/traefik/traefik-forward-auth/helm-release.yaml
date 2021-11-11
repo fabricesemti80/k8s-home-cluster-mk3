@@ -28,7 +28,7 @@ spec:
       format: "pretty"
     authHost: "auth.${SECRET_DOMAIN}"
     restrictions:
-      domain: ${SECRET_DOMAIN}
+      domain: "*"
       whitelist: ${SECRET_CLOUDFLARE_EMAIL}
     lifetime: 86400 # 1 day
     cookie:
