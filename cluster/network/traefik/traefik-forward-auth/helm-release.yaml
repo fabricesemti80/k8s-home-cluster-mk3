@@ -29,7 +29,7 @@ spec:
     authHost: "auth.${SECRET_DOMAIN}"
     restrictions:
       domain: ${SECRET_DOMAIN}
-      whitelist: ${SECRET_CLOUDFLARE_EMAIL}
+      # whitelist: ${SECRET_CLOUDFLARE_EMAIL}
     lifetime: 86400 # 1 day
     cookie:
       domain: ${SECRET_DOMAIN}
@@ -39,8 +39,8 @@ spec:
     providers:
       google:
         enabled: true
-        clientId: ${SECRET_GOOGLE_AUTH_CLIENT_ID}
-        clientSecret: ${SECRET_GOOGLE_AUTH_CLIENT_SECRET}
+        # clientId: ${SECRET_GOOGLE_AUTH_CLIENT_ID}
+        # clientSecret: ${SECRET_GOOGLE_AUTH_CLIENT_SECRET}
     serviceAccount:
       # Specifies whether a service account should be created
       create: true
@@ -96,3 +96,6 @@ spec:
       maxReplicas: 100
       targetCPUUtilizationPercentage: 80
       # targetMemoryUtilizationPercentage: 80
+  valuesFrom:
+    - kind: Secret
+      name: "traefik-forward-auth-secre"
