@@ -45,8 +45,12 @@ spec:
         ingressClassName: "traefik"
         annotations:
           hajimari.io/enable: "true"
-          hajimari.io/icon: "cloud-download"
+          hajimari.io/icon: "cloud-download"          
+          cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+          external-dns/is-public: "true"
         hosts:
           - host: "qb.${SECRET_DOMAIN}"
             paths:
@@ -54,7 +58,8 @@ spec:
                 pathType: Prefix
         tls:
           - hosts:
-              - "qb.${SECRET_DOMAIN}"
+              - "qb.${SECRET_DOMAIN}"          
+            secretName: "qb-tls"
     metrics:
       enabled: false #true #TODO revise this
       exporter:
