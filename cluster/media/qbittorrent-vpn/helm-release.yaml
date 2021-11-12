@@ -73,7 +73,7 @@ spec:
         type: custom
         volumeSpec:
           nfs:
-            server: "${NAS_ADDR}"
+            server: "${NAS_ADDRESS}"
             path: "${NAS_PATH_MEDIA}"
         mountPath: /media
     podAnnotations:
