@@ -16,6 +16,7 @@ metadata:
     #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
     cert-manager.io/cluster-issuer: "letsencrypt-production"
     #? traefik-specifics
+    traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     #? external DNS - if need to be accessed via Internet (using CloudFlare)
     #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
