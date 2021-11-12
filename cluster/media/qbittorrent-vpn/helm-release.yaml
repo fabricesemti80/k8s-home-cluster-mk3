@@ -47,6 +47,7 @@ spec:
         tls:
           - hosts:
               - "qb-vpn.${SECRET_DOMAIN}"
+            secretName: "qb-vpn-tls"
     metrics:
       enabled: false #true #TODO: install prometheus etc https://github.com/esanchezm/prometheus-qbittorrent-exporter
       exporter:
