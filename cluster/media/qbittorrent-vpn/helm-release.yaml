@@ -75,7 +75,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_ADDRESS}"
-            path: \PersistentVolumeClaims\Media # "${NAS_PATH_MEDIA}"
+            path: "${NAS_PATH_MEDIA}"
         mountPath: /media
     podAnnotations:
       # backup.velero.io/backup-volumes: config
