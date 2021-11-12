@@ -63,7 +63,7 @@ spec:
         volumeSpec:
           nfs:
             server: "${NAS_ADDRESS}"
-            path: /PersistentVolumeClaims/Media
+            path: "${NAS_PATH_MEDIA}" # /PersistentVolumeClaims/Media
         mountPath: /media
         readOnly: true
     resources:
