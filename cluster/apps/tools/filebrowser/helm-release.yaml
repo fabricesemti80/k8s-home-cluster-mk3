@@ -35,20 +35,13 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          #? traefik-specifics
+          cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
           traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          #! oauth2 #!
           traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
-          #traefik.ingress.kubernetes.io/router.middlewares: security-rfc1918@kubernetescrd # this would restrict it to be accessible from internal IP-s only
-          #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
-          hajimari.io/appName: "filebrowser"
+          hajimari.io/appName: "filebrowser" # needs hajimari #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
           hajimari.io/enable: "true"
           hajimari.io/icon: "folder-open"
-          #? external DNS - if need to be accessed via Internet (using CloudFlare)
-          #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
           external-dns/is-public: "true"
         hosts:
           - host: "filebrowser.${SECRET_DOMAIN}"
