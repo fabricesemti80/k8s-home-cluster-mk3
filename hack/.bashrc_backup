@@ -132,3 +132,6 @@ alias cls=clear
 
 #& https://github.com/hidetatz/kubecolor
 alias kubectl="kubecolor"
+
+#& backup this profile
+yes | cp ~/.bashrc /home/fabrice/k8s-home-cluster-mk3/hack/.bashrc_backup

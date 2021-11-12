@@ -8,6 +8,9 @@ while true; do
     figlet -f slant "default" | lolcat
     kubecolor get po -n default; sleep 5; clear;
 
+    figlet -f slant "networking" | lolcat
+    kubecolor get po -n networking; sleep 5; clear;
+
     figlet -f slant "media" | lolcat
     kubecolor get po -n media; sleep 5; clear;
 
