@@ -18,7 +18,7 @@ spec:
         - name: whoami
           port: 80
       middlewares:
-        - name: traefik-forward-auth
+        - name: networking-traefik-forward-auth@kubernetescrd
   tls:
     secretName: traefik-forward-auth-tls
     #certResolver: cloudflare # was 'default'
