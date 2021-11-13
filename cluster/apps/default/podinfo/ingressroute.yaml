@@ -15,14 +15,11 @@ spec:
     - kind: Rule
       match: Host(`podinfo.${SECRET_DOMAIN}`)
       middlewares:
-        - name: authentik
-          namespace: security
+        - name: networking-traefik-forward-auth@kubernetescrd
       priority: 10
       services:
         - name: podinfo
           port: 9898
   tls:
-    secretName: podinfo-tls-secret
-    # # use an empty tls object for TLS with Let's Encrypt
-    # secretName: podinfo-tls-secret
-    # certResolver: default
+    secretName: podinfo-tls-secret    
+    certResolver: default
