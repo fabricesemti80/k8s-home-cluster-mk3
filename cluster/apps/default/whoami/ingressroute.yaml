@@ -21,4 +21,4 @@ spec:
         - name: networking-traefik-forward-auth@kubernetescrd
   tls:
     secretName: traefik-forward-auth-tls
-    certResolver: cloudflare # was 'default'
+    certResolver: default
