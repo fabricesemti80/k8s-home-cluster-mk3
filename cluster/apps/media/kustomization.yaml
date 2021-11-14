@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - qbittorrent
   - qbittorrent-vpn
-  - sonarr
+  # - sonarr
