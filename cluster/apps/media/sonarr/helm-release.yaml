@@ -48,7 +48,7 @@ spec:
       supplementalGroups:
         - 100
     metrics:
-      enabled: true
+      enabled: false # true #TODO: add metrics
       serviceMonitor:
         interval: 3m
         scrapeTimeout: 1m
