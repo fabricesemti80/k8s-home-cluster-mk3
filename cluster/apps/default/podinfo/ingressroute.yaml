@@ -14,12 +14,12 @@ spec:
   routes:
     - kind: Rule
       match: Host(`podinfo.${SECRET_DOMAIN}`)
-      middlewares:
-        - name: networking-traefik-forward-auth@kubernetescrd
       priority: 10
       services:
         - name: podinfo
           port: 9898
+      middlewares:
+        - name: networking-traefik-forward-auth@kubernetescrd
   tls:
-    secretName: podinfo-tls-secret    
+    secretName: podinfo-tls-secret
     certResolver: default
