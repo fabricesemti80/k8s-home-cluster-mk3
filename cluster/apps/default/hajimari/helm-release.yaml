@@ -46,6 +46,9 @@ spec:
         - name: qbit-vpn
           url: "https://qb-vpn.${SECRET_DOMAIN}"
           icon: "cloud-download"
+        - name: Plex
+          url: "http://192.168.1.202:32400"
+          icon: "plex"
       groups:
         - name: Communicate
           links:
