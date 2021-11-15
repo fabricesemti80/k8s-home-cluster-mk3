@@ -41,6 +41,16 @@ The following, not secret values should also be stored, for example in the clsut
 
 ## See the helm-release for further details.
 
+TBC
+
+## Verify
+
+If the setup was succesfull, pods that connect to this VPN gateway should should other country IP-s than the one we are in.
+
+![check](images/2021-11-15%2017_18_10-Lens_vpn_check.png)
+
+(my geolocation is in fact UK, but as seen, the VPN breakes out in Ireland)
+
 ## Ref
 
 <https://github.com/aka-raccoon/raccoons-burrow/tree/96cb74f38171bcd21bc532509b415f6d77c34cc9/cluster/apps/vpn-gateway>
