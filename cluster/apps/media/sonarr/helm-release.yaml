@@ -44,6 +44,20 @@ spec:
           - hosts:
               - "sonarr.${SECRET_DOMAIN}"
             secretName: "sonarr-tls"
+      api:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-rfc1918@kubernetescrd"
+        hosts:
+          - host: "sonarr.${SECRET_DOMAIN}"
+            paths:
+              - path: /api
+                pathType: Prefix
+        tls:
+          - hosts:
+              - "sonarr.${SECRET_DOMAIN}"
     podSecurityContext:
       supplementalGroups:
         - 100
