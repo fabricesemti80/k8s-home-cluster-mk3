@@ -98,5 +98,3 @@ spec:
             port: ${VPN_PORT_QB}
           - type: tcp
             port: ${VPN_PORT_QB}
-#
-#& ref: https://github.com/aka-raccoon/raccoons-burrow/tree/96cb74f38171bcd21bc532509b415f6d77c34cc9/cluster/apps/vpn-gateway
