@@ -4,13 +4,13 @@
 
 The rook-ceph block provides the storage class - *rook-cephfs* -  for the kubernetes cluster.
 
-## Preparation
+## 🛒 Preparation
 
 In my current setup I use iSCSI targets presented to the cluster nodes. These should be created (for the time being manually, in the NAS-s interface)
 
 ![iSCSi](images/NAS-ISCSI.png)
 
-## Cleaning preparation
+## 🧹 Cleaning preparation
 
 If the cluster is being reinstalled, it is important to do a cleanup on each of the nodes:
 
