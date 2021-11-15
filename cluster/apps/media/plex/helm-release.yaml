@@ -22,6 +22,9 @@ spec:
       tag: v1.24.5.5173-8dcc73a59
     env:
       TZ: "Europe/London"
+      ADVERTISE_IP: "http://${SVC_PLEX_ADDR}:32400/"
+      ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16"
+      PLEX_CLAIM: claim-eKRDK-_Yd6bTtTyssSYY # "${SECRET_PLEX_CLAIM_TOKEN}"
     podSecurityContext:
       supplementalGroups:
         - 44
@@ -99,9 +102,10 @@ spec:
       limits:
         # gpu.intel.com/i915: 1
         memory: 16000Mi
+    #FIXME: get better hosts
     addons:
       promtail:
-        enabled: true
+        enabled: false #true
         image:
           repository: ghcr.io/k8s-at-home/promtail
           tag: 2.3.0
