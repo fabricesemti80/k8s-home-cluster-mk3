@@ -34,6 +34,7 @@ spec:
       #     icon: test-tube
       # #? </template app end>
       customApps:
+        #? icons from https://materialdesignicons.com/
         - name: Ceph Dashboard
           url: https://rook-ceph.fabricesemti.net/ #https://192.168.1.201:8443
           icon: harddisk
@@ -49,6 +50,9 @@ spec:
         - name: Plex
           url: "http://192.168.1.202:32400/web/index.html#!/"
           icon: "plex"
+        - name: filebrowser
+          url: "https://filebrowser.fabricesemti.net/files/"
+          icon: "file"
       groups:
         - name: Communicate
           links:
