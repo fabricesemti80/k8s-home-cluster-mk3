@@ -4,3 +4,4 @@ resources:
   - qbittorrent
   - qbittorrent-vpn
   - sonarr
+  - plex
