@@ -241,6 +241,16 @@ spec:
         #     config: # configuration can be specified at the node level which overrides the cluster level config
         #   - name: "172.17.4.301"
         # deviceFilter: "^sdb"
+      - name: "k8s-3"
+        devices: # specific devices to use for storage can be specified for each node
+          - name: "sdb"
+        #       - name: "nvme01" # multiple osds can be created on high performance devices
+        #         config:
+        #           osdsPerDevice: "5"
+        #       - name: "/dev/disk/by-id/ata-ST4000DM004-XXXX" # devices can be specified using full udev paths
+        #     config: # configuration can be specified at the node level which overrides the cluster level config
+        #   - name: "172.17.4.301"
+        # deviceFilter: "^sdb"
     # when onlyApplyOSDPlacement is false, will merge both placement.All() and placement.osd
     onlyApplyOSDPlacement: false
   # The section for configuring management of daemon disruptions during upgrade or fencing.
