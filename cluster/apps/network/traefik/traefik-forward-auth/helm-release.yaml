@@ -26,7 +26,7 @@ spec:
       level: "debug"
       # logging.format -- [text|json|pretty] Log format (default: text)
       format: "pretty"
-    authHost: "auth.${SECRET_DOMAIN}"
+    authHost: "oauth.${SECRET_DOMAIN}"
     restrictions:
       domain: "*"
       whitelist: ${SECRET_CLOUDFLARE_EMAIL}
@@ -75,14 +75,14 @@ spec:
         # kubernetes.io/ingress.class: nginx
         # kubernetes.io/tls-acme: "true"
       hosts:
-        - host: auth.${SECRET_DOMAIN}
+        - host: oauth.${SECRET_DOMAIN}
           paths:
             path: /
             #pathType: Prefix
       tls:
         - hosts:
-            - auth.${SECRET_DOMAIN}
-          secretName: auth-fabricesemti-tls
+            - oauth.${SECRET_DOMAIN}
+          secretName: oauth-fabricesemti-tls
     resources:
       requests:
         memory: 32Mi
