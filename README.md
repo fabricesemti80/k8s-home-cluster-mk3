@@ -4,11 +4,12 @@
 
 *(fabricesemti80)*
 
-| IP address   | Subnet         | Name   | Role        |
-| ------------ | -------------- | ------ | ----------- |
-| 192.168.1.10 | 192.168.0.0/16 | k8s-m1 | master node |
-| 192.168.1.20 | 192.168.0.0/16 | k8s-w1 | worker node |
-| 192.168.1.21 | 192.168.0.0/16 | k8s-w2 | worker node |
+| IP address   | Subnet         | Name  | Role        |
+| ------------ | -------------- | ----- | ----------- |
+| 192.168.1.10 | 192.168.0.0/16 | k8s-0 | master node |
+| 192.168.1.20 | 192.168.0.0/16 | k8s-1 | worker node |
+| 192.168.1.21 | 192.168.0.0/16 | k8s-2 | worker node |
+| 192.168.1.22 | 192.168.0.0/16 | k8s-3 | worker node |
 
 Highly opinionated template for deploying a single [k3s](https://k3s.io) cluster with [Ansible](https://www.ansible.com) and [Terraform](https://www.terraform.io) backed by [Flux](https://toolkit.fluxcd.io/) and [SOPS](https://toolkit.fluxcd.io/guides/mozilla-sops/).
 
@@ -47,6 +48,37 @@ For provisioning the following tools will be used:
 - [Terraform](https://www.terraform.io) - in order to help with the DNS settings this will be used to provision an already existing Cloudflare domain and DNS settings
 
 ## :memo:&nbsp; Prerequisites
+
+Ensure that the k8s servers have the same named network interfaces (this is important for kubevip).
+
+```yaml
+---
+# Let NetworkManager manage all devices on this system
+# ref: https://askubuntu.com/questions/1317036/how-to-rename-a-network-interface-in-20-04
+# update madaddress (and add further interfaces, if you have any) accordingly
+# sudo nano /etc/netplan/01-network-manager-all.yaml
+  network:
+    version: 2
+    ethernets:
+        eth0:
+            addresses:
+            - 192.168.1.20/16
+            gateway4: 192.168.1.1
+            nameservers:
+                addresses:
+                - 192.168.1.1
+                - 208.67.222.222
+                - 208.67.220.220
+                search: []
+            match:
+                macaddress: f8:bc:12:9a:02:ce
+            set-name: eth0
+        # eth1:
+            # dhcp4: true
+            # match:
+                # macaddress: 2c:4d:54:65:3d:eb
+            # set-name: eth1
+```
 
 ### :computer:&nbsp; Systems
 
@@ -288,11 +320,6 @@ flux --kubeconfig=./provision/kubeconfig check --pre
 ```sh
 kubectl --kubeconfig=./provision/kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig=./provision/kubeconfig apply -f -
 ```
-
-~~Add this namespace to flu's default for convenience (for fluxctl)
-```sh
-$env:FLUX_FORWARD_NAMESPACE = "flux-system"
-```~~
 
 3. Add the Flux GPG key in-order for Flux to decrypt SOPS secrets
 

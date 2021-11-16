@@ -40,6 +40,7 @@ rm -rf /dev/mapper/ceph--*
 
 # Inform the OS of partition table changes
 partprobe $DISK
+
 ```
 
 - Ensure to remove ceph datadir before install (check what is the path in the cluster.yaml  file at dataDirHostPath:  value) if you ever had rook on the worker nodes!
