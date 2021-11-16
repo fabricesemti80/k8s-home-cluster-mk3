@@ -20,7 +20,7 @@ spec:
       tag: "0.39"
     nameOverride: changedetection-io
     env:
-      BASE_URL: "https://change-detection.${SECRET_DOMAIN}"
+      BASE_URL: "https://change-detect.${SECRET_DOMAIN}"
       WEBDRIVER_URL: http://localhost:4444/wd/hub
       TZ: "Europe/London"
     service:
@@ -47,13 +47,13 @@ spec:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
         hosts:
-          - host: "change-detection.${SECRET_DOMAIN}"
+          - host: "change-detect.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "change-detection.${SECRET_DOMAIN}"
+              - "change-detect.${SECRET_DOMAIN}"
             #? needed for ingress!
             secretName: "changedetection-tls"
     persistence:
