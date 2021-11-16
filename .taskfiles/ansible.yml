@@ -11,9 +11,9 @@ vars:
   WORKER1: "k8s-1"
   WORKER2: "k8s-2"
   WORKER3: "k8s-3"
-  ISCSI1: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s1.c50b93"
-  ISCSI2: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s2.c50b93"
-  ISCSI3: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s3.c50b93"
+  ISCSI1: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s1new.c50b93"
+  ISCSI2: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s2new.c50b93"
+  ISCSI3: "iqn.2004-04.com.qnap:ts-809:iscsi.k8s3new.c50b93"
 
   # this should be your NAS or iSCSI server
   PORTAL: "192.168.1.3"
