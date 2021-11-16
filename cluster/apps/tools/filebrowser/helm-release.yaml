@@ -52,7 +52,7 @@ spec:
           - hosts:
               - "filebrowser.${SECRET_DOMAIN}"
             #? needed for ingress!
-            secretName: "filebrowser-tls"
+            secretName: "file-browser-tls"
     persistence:
       config:
         enabled: true
