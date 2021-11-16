@@ -24,7 +24,7 @@ spec:
       TZ: "Europe/London"
       ADVERTISE_IP: "http://192.168.1.202:32400/"
       #ALLOWED_NETWORKS: "10.0.0.0/8,172.16.0.0/16"
-      PLEX_CLAIM: claim-RhQ363B2VuDC1XAyyYa6 # "${SECRET_PLEX_CLAIM_TOKEN}"
+      PLEX_CLAIM: claim-zL5NWMaohtryseQKy8XN # "${SECRET_PLEX_CLAIM_TOKEN}"
     podSecurityContext:
       supplementalGroups:
         - 44
