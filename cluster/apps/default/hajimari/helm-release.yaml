@@ -42,7 +42,7 @@ spec:
           url: "https://sonarr.${SECRET_DOMAIN}"
           icon: television-box
         - name: change-detection
-          url: "https://change-detection.${SECRET_DOMAIN}"
+          url: "https://change-detect.${SECRET_DOMAIN}"
           icon: newspaper-variant-outline
         - name: qbit-vpn
           url: "https://qb-vpn.${SECRET_DOMAIN}"
