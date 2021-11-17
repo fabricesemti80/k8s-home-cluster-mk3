@@ -1,44 +1,108 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: kubeview
   namespace: tools
+  annotations:
+    fluxcd.io/automated: "false"
 spec:
-  interval: 1m
+  releaseName: kubeview
+  interval: 5m
   chart:
     spec:
       chart: kubeview
-      version: 0.1.20
       sourceRef:
         kind: HelmRepository
-        name: kubeview-charts
+        name: kubeview
         namespace: flux-system
-      interval: 1m
+      version: 0.1.13
   values:
+    replicaCount: 1
+
+    image:
+      repository: rebelinblue/kubeview
+      tag: 0.1.14
+      pullPolicy: Always
+
+    nameOverride: kubeview
+
     ingress:
-      enabled: true
-      ingressClassName: "traefik"
-      annotations:
-        #? traefik-specifics
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        #! oauth2 #!
-        traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
-        #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
-        cert-manager.io/cluster-issuer: "letsencrypt-production"
-        #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "kubernetes"
-        #? external DNS - if need to be accessed via Internet (using CloudFlare)
-        #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
-        external-dns/is-public: "true"
-      hosts:
-        - host: "kubeview.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - "kubeview.${SECRET_DOMAIN}"
-          secretName: kubeview-tls
+      enabled: false
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubeview
+  namespace: tools
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+    external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+    external-dns/is-public: "true"
+spec:
+  rules:
+    - host: "kubeview.${secret_domain}"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - "kubeview.${secret_domain}"
+      secretName: kubeview-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kubeview-images
+  namespace: tools
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  rules:
+    - host: "kubeview.${secret_domain}"
+      http:
+        paths:
+          - path: /img
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+          - path: /css
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+          - path: /js
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: kubeview
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - "kubeview.${secret_domain}"
+      secretName: kubeview-tls
