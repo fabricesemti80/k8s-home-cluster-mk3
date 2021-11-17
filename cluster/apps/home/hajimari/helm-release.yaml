@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: hajimari
-  namespace: default
+  namespace: home
 spec:
   interval: 5m
   chart:
@@ -26,7 +26,9 @@ spec:
         matchNames:
           - default
           - networking
-      name: "you"
+          - media
+          - tools
+      name: "Fabrice"
       # #? <template app start>
       # customApps:
       #   - name: Some External Cluster Service
