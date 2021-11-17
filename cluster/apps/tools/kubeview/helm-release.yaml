@@ -5,69 +5,40 @@ metadata:
   name: kubeview
   namespace: tools
 spec:
-  interval: 5m
+  interval: 1m
   chart:
     spec:
       chart: kubeview
+      version: 0.1.20
       sourceRef:
         kind: HelmRepository
-        name: cowboysysop-charts
+        name: kubeview-charts
         namespace: flux-system
-      interval: 5m
+      interval: 1m
   values:
-    image:
-      repository: cowboysysop/kubeview
-      tag: 2.5.1
-    # env:
-    #   FB_DATABASE: "/config/kubeview.db"
-    #   FB_ROOT: "/media"
-    #   FB_LOG: "stdout"
-    #   FB_NOAUTH: "true"
-    #   TZ: "Europe/London"
-    service:
-      main:
-        ports:
-          http:
-            port: 8000
     ingress:
-      main:
-        enabled: true
-        ingressClassName: "traefik"
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
-          hajimari.io/appName: "kubeview" # needs hajimari #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "kubernetes"
-          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
-          external-dns/is-public: "true"
-        hosts:
-          - host: "kubeview.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - "kubeview.${SECRET_DOMAIN}"
-            #? needed for ingress!
-            secretName: "kubeview-tls"
-    # persistence:
-    #   config:
-    #     enabled: true
-    #     existingClaim: kubeview-config-v1
-    #   media:
-    #     enabled: true
-    #     type: custom
-    #     volumeSpec:
-    #       nfs:
-    #         server: "${NAS_ADDRESS}"
-    #         path: "${NAS_PATH_MEDIA}" # /PersistentVolumeClaims/Media
-    #     mountPath: /media
-    #     readOnly: true
-    # resources:
-    #   requests:
-    #     memory: 100Mi
-    #     cpu: 100m
-    #   limits:
-    #     memory: 500Mi
+      enabled: true
+      ingressClassName: "traefik"
+      annotations:
+        #? traefik-specifics
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        #! oauth2 #!
+        traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
+        #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "kubernetes"
+        #? external DNS - if need to be accessed via Internet (using CloudFlare)
+        #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
+        external-dns/is-public: "true"
+      hosts:
+        - host: "kubeview.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - "kubeview.${SECRET_DOMAIN}"
+          secretName: kubeview-tls
