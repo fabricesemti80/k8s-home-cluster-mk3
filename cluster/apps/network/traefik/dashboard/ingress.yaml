@@ -2,7 +2,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: traefik-dashboard
+  name: traefik-dash
   namespace: networking
   annotations:
     #? cert issuer; valid opttions: letsencrypt-stating or letsencrypt-production
@@ -11,7 +11,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
-    hajimari.io/appName: "traefik-dashboard"
+    hajimari.io/appName: "traefik-dash"
     hajimari.io/enable: "true"
     hajimari.io/icon: "web"
     #? external DNS - if need to be accessed via Internet (using CloudFlare)
@@ -22,11 +22,11 @@ spec:
   ingressClassName: "traefik"
   tls:
     - hosts:
-        - "traefik-dashboard.${SECRET_DOMAIN}"
+        - "traefik-dash.${SECRET_DOMAIN}"
       #? needed for ingress!
-      secretName: "traefik-dashboard-tls"
+      secretName: "traefik-dash-tls"
   rules:
-    - host: "traefik-dashboard.${SECRET_DOMAIN}"
+    - host: "traefik-dash.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /
