@@ -36,7 +36,7 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
           hajimari.io/enable: "true" # needs hajimari #? hajimari-specific (optional) - icon ref: https://materialdesignicons.com/
-          hajimari.io/icon: "cloud-download"
+          hajimari.io/icon: "cloud-download-outline"
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
           external-dns/is-public: "true"
         hosts:
