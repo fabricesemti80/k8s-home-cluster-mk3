@@ -62,6 +62,7 @@ spec:
     env:
       TZ: "Europe/London"
     service:
+      type: ClusterIP
       main:
         ports:
           http:
