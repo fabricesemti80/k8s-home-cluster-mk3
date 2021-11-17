@@ -30,7 +30,7 @@ spec:
       hosts:
         - host: "kubeview.${SECRET_DOMAIN}"
           paths:
-            - path: /
+            - path: /frontend
               pathType: Prefix
       tls:
         - hosts:
