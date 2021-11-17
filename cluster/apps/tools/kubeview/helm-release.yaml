@@ -29,7 +29,10 @@ spec:
         external-dns/is-public: "true"
       hosts:
         - host: "kubeview.${SECRET_DOMAIN}"
-          paths: ["/"]
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
-        - hosts: ['kubeview.${SECRET_DOMAIN}"']
-          secretName: kube-view-tls
+        - hosts:
+            - "kubeview.${SECRET_DOMAIN}"
+          secretName: "kubeview-tls"
