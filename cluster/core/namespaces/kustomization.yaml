@@ -14,3 +14,4 @@ resources:
   - media.yaml
   - downloads.yaml
   - security.yaml
+  - velero.yaml
