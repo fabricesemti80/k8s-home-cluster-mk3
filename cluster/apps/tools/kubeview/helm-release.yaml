@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: cowboysysop/kubeview
-      tag: 0.1.11
+      tag: 2.5.1
     # env:
     #   FB_DATABASE: "/config/kubeview.db"
     #   FB_ROOT: "/media"
