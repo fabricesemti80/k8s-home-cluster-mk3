@@ -52,7 +52,7 @@ metadata:
     external-dns/is-public: "true"
 spec:
   rules:
-    - host: "kubeview.${secret_domain}"
+    - host: "kubeview.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /
@@ -64,7 +64,7 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - "kubeview.${secret_domain}"
+        - "kubeview.${SECRET_DOMAIN}"
       secretName: kubeview-tls
 ---
 apiVersion: networking.k8s.io/v1
@@ -78,7 +78,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-production
 spec:
   rules:
-    - host: "kubeview.${secret_domain}"
+    - host: "kubeview.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /img
@@ -104,5 +104,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - "kubeview.${secret_domain}"
+        - "kubeview.${SECRET_DOMAIN}"
       secretName: kubeview-tls
