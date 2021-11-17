@@ -3,23 +3,14 @@ kind: Kustomization
 resources:
   - authentik-charts.yaml
   - bitnami-charts.yaml
-  - blakeshome-charts.yaml
-  - coredns-charts.yaml
   - deliveryhero-charts.yaml
   - descheduler-charts.yaml
-  - emqx-charts.yaml
   - external-dns-charts.yaml
-  - falco-security-charts.yaml
   - grafana-charts.yaml
   - hajimari-charts.yaml
   - infracloudio-charts.yaml
-  - ingress-nginx-charts.yaml
-  - jetstack-charts copy.yaml
   - jetstack-charts.yaml
   - k8s-at-home-charts.yaml
-  - kasten-charts.yaml
-  - kuberhealthy-charts.yaml
-  - lwolf-charts.yaml
   - metallb-charts.yaml
   - metrics-server-charts.yaml
   - minecraft-server-charts.yaml
@@ -30,7 +21,5 @@ resources:
   - rook-ceph-charts.yaml
   - stakater-charts.yaml
   - traefik-charts.yaml
-  - vernemq-charts.yaml
-  - victoriametrics-charts.yaml
-  - vmware-tanzu-charts.yaml
   - weaveworks-kured-charts.yaml
+  - ingress-nginx-charts.yaml
