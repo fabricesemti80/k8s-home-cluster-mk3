@@ -1,0 +1,30 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: kubeview
+  namespace: tools
+spec:
+  releaseName: kubeview
+  chart:
+    git: https://github.com/benc-uk/kubeview
+    path: deployments/helm/kubeview
+  values:
+    ingress:
+      enabled: true
+      ingressClassName: "traefik"
+      annotations:
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "cloud-download"
+        cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+        external-dns/is-public: "true"
+
+      hosts:
+        - host: "kubeview.${SECRET_DOMAIN}"
+          paths: ["/"]
+      tls:
+        - secretName: kube-view-tls
+          hosts:
+            - "kubeview.${SECRET_DOMAIN}"
