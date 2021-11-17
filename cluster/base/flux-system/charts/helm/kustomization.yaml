@@ -24,3 +24,4 @@ resources:
   - weaveworks-kured-charts.yaml
   - ingress-nginx-charts.yaml
   - vmware-tanzu-charts.yaml
+  - cowboysysop-charts.yaml
