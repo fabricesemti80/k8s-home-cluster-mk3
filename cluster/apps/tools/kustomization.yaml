@@ -4,4 +4,4 @@ resources:
   - filebrowser
   - changedetection-io
   #- minio
-  - kubeview
+  #- kubeview
