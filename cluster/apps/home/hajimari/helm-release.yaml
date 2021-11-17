@@ -65,9 +65,9 @@ spec:
         # - name: change-detection
         #   url: "https://change-detect.${SECRET_DOMAIN}"
         #   icon: newspaper-variant-outline
-        - name: filebrowser
-          url: "https://filebrowser.fabricesemti.net/files/"
-          icon: "file"
+        # - name: filebrowser
+        #   url: "https://filebrowser.fabricesemti.net/files/"
+        #   icon: "file"
       groups:
         - name: Communicate
           links:
