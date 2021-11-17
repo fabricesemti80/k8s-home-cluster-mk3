@@ -53,6 +53,9 @@ spec:
         - name: filebrowser
           url: "https://filebrowser.fabricesemti.net/files/"
           icon: "file"
+        - name: traefik-dashboard
+          url: "https://traefik-dash.fabricesemti.net/dashboard/#/"
+          icon: "router"
       groups:
         - name: Communicate
           links:
