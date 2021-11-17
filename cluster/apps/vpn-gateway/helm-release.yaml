@@ -67,7 +67,7 @@ spec:
             memory: 512Mi
         livenessProbe:
           exec:
-            command:
+            command: # the SECRET_VPN_COUNTRY should match with your VPN exit country
               - sh
               - -c
               - if [ $(wget -q -O- https://ipinfo.io/country) == '${SECRET_VPN_COUNTRY}' ]; then exit 0; else exit $?; fi
