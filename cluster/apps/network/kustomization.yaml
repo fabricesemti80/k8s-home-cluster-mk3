@@ -5,3 +5,5 @@ resources:
   - external-dns
   - cloudflare-ddns
   - wildcard-certificate
+  - blocky
+
