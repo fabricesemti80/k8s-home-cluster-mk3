@@ -25,3 +25,4 @@ resources:
   - ingress-nginx-charts.yaml
   - vmware-tanzu-charts.yaml
   - kubeview.yaml
+  - pihole-chart.yaml
