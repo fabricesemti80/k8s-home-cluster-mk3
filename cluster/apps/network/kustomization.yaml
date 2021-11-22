@@ -4,6 +4,6 @@ resources:
   - traefik
   - external-dns
   - cloudflare-ddns
-  - wildcard-certificate
+  #- wildcard-certificate #TODO: enable this later
   #- blocky
   - pihole
