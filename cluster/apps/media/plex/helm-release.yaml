@@ -33,8 +33,9 @@ spec:
     service:
       main:
         type: LoadBalancer
-        externalIPs:
-          - 192.168.1.202
+        loadBalancerIP: "${SVC_PLEX_ADDRESS}"
+        # externalIPs:
+        #   - 192.168.1.202 #? you can only use an external ip with calico and BGP, set a load balancer ip instead on the service
         externalTrafficPolicy: Local
         annotations:
           traefik.ingress.kubernetes.io/service.serversscheme: https
