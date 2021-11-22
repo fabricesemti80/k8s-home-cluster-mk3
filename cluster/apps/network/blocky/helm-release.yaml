@@ -35,8 +35,9 @@ spec:
       dns:
         enabled: true
         type: LoadBalancer
-        externalIPs:
-          - "${SVC_BLOCKY_ADDRESS}"
+        loadBalancerIP: "${SVC_BLOCKY_ADDRESS}"
+        # externalIPs:
+        #   - "${SVC_BLOCKY_ADDRESS}" #? you can only use an external ip with calico and BGP, set a load balancer ip instead on the service
         ports:
           tcp:
             enabled: true
