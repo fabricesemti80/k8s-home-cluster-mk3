@@ -24,13 +24,13 @@ spec:
       TZ: "Europe/London"
     service:
       main:
+        loadBalancerIP: "${SVC_QBITTORRENT_INTERNALL_ADDRESS}"
         ports:
           http:
             port: 8080
       bittorrent:
         enabled: true
         type: LoadBalancer
-        loadBalancerIP: "${SVC_QBITTORRENT_INTERNALL_ADDRESS}"
         externalIPs:
           - "${SVC_QBITTORRENT_EXTERNALL_ADDRESS}"
         ports:
