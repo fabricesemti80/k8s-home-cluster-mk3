@@ -8,3 +8,4 @@ resources:
   - tools
   - vpn-gateway
   - home
+  - velero
