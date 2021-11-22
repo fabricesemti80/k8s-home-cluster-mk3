@@ -20,3 +20,4 @@ dty1er/tap/kubecolor
 figlet
 lolcat
 markdownlint-cli
+velero
