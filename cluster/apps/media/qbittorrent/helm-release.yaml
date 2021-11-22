@@ -24,6 +24,7 @@ spec:
       TZ: "Europe/London"
     service:
       main:
+        type: LoadBalancer
         loadBalancerIP: "${SVC_QBITTORRENT_INTERNALL_ADDRESS}"
         ports:
           http:
