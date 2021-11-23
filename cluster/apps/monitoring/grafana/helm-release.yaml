@@ -32,7 +32,7 @@ spec:
       GF_DATE_FORMATS_INTERVAL_DAY: "DD/MM"
       GF_DATE_FORMATS_INTERVAL_MONTH: "MM-YYYY"
       GF_DATE_FORMATS_INTERVAL_YEAR: "YYYY"
-      #VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000"
+      #VAR_BLOCKY_URL: "http://blocky.networking.svc.cluster.local:4000" #FIXME:re-enable blocky
     adminPassword: "${SECRET_GRAFANA_PASSWORD}"
     grafana.ini:
       server:
@@ -142,18 +142,18 @@ spec:
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2/main/manifests/monitoring/grafana/dashboards/control-plane.json
           datasource: Prometheus
-        blocky:
-          url: https://raw.githubusercontent.com/0xERR0R/blocky/v0.16/docs/blocky-grafana.json
-          datasource: Prometheus
-        apc-smart-ups-1500:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/apc-smart-ups-1500-snmp.json
-          datasource: Prometheus
-        cyberpower-pdu41001:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/cyberpower-pdu41001-snmp.json
-          datasource: Prometheus
-        lidarr:
-          url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/lidarr.json
-          datasource: Prometheus
+        # blocky: #FIXME:re-enable blocky
+        #   url: https://raw.githubusercontent.com/0xERR0R/blocky/v0.16/docs/blocky-grafana.json
+        #   datasource: Prometheus
+        # apc-smart-ups-1500:
+        #   url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/apc-smart-ups-1500-snmp.json
+        #   datasource: Prometheus
+        # cyberpower-pdu41001:
+        #   url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/cyberpower-pdu41001-snmp.json
+        #   datasource: Prometheus
+        # lidarr:
+        #   url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/lidarr.json
+        #   datasource: Prometheus
         radarr:
           url: https://raw.githubusercontent.com/k8s-at-home/grafana-dashboards/main/radarr.json
           datasource: Prometheus
@@ -180,12 +180,19 @@ spec:
       enabled: true
       ingressClassName: "traefik"
       annotations:
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "chart-areaspline"
+        cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+        external-dns/is-public: "true"
       hosts:
         - "grafana.${SECRET_DOMAIN}"
       tls:
         - hosts:
             - "grafana.${SECRET_DOMAIN}"
+          secretName: grafana-secret
     serviceAccount:
       create: true
       autoMount: true
