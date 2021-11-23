@@ -181,7 +181,7 @@ spec:
       ingressClassName: "traefik"
       annotations:
         hajimari.io/enable: "true"
-        hajimari.io/icon: "chart-areaspline"
+        hajimari.io/icon: "chart-bar"
         cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
