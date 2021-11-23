@@ -28,6 +28,7 @@ spec:
           - networking
           - media
           - tools
+          - monitoring
       name: "Fabrice"
       # #? <template app start>
       # customApps:
