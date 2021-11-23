@@ -189,6 +189,7 @@ spec:
         tls:
           - hosts:
               - "prometheus.${SECRET_DOMAIN}"
+            secretName: prometheus-tls
       # thanosService: #TODO: I do not have this
       #   enabled: true
       # thanosServiceMonitor:
