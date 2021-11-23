@@ -3,10 +3,10 @@ kind: Kustomization
 resources:
   # - blackbox-exporter
   # - botkube
-  #! - grafana
+  - grafana
   - kube-prometheus-stack
-  #! - loki
-  #! - promtail
+  - loki
+  - promtail
   # # - pushgateway
   # - snmp-exporter-pdu-0
   # - snmp-exporter-pdu-1
