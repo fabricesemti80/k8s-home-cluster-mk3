@@ -24,7 +24,7 @@ spec:
     config:
       recommendations: false
       settings:
-        clustername: home-cluster
+        clustername: k8s-home-cluster
         kubectl:
           enabled: true
           restrictAccess: true
