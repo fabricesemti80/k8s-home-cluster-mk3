@@ -190,10 +190,10 @@ spec:
           - hosts:
               - "prometheus.${SECRET_DOMAIN}"
             secretName: prometheus-tls
-      # thanosService: #TODO: I do not have this
-      #   enabled: true
-      # thanosServiceMonitor:
-      #   enabled: true
+      thanosService:
+        enabled: true
+      thanosServiceMonitor:
+        enabled: true
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"
@@ -211,12 +211,12 @@ spec:
               resources:
                 requests:
                   storage: 10Gi
-        # thanos: #TODO: I do not have this
-        #   image: quay.io/thanos/thanos:v0.23.1
-        #   version: v0.22.0
-        #   objectStorageConfig:
-        #     name: thanos-objstore
-        #     key: objstore.yml
+        thanos:
+          image: quay.io/thanos/thanos:v0.23.1
+          version: v0.22.0
+          objectStorageConfig:
+            name: thanos-objstore
+            key: objstore.yml
         additionalScrapeConfigs:
           # - job_name: "coredns" #TODO: I do not have this
           #   honor_timestamps: true
@@ -229,10 +229,10 @@ spec:
             static_configs:
               - targets:
                   - "minio.tools:9000"
-          # - job_name: "node-exporter" #TODO: I do not have this
-          #   honor_timestamps: true
-          #   static_configs:
-          #     - targets:
-          #         - "${GATEWAY_ADDR}:9100"
-          #         - "${NAS_ADDR}:9100"
+          - job_name: "node-exporter"
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - "${GATEWAY_ADDRESS}:9100"
+                  - "${NAS_ADDRESS}:9100"
           #         - "192.168.1.28:9100"
