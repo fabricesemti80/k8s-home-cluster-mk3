@@ -43,10 +43,10 @@ spec:
                     {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
                     {{ end }}
                   {{ end }}
-          - name: "nodered"
-            webhook_configs:
-              - url: "http://node-red.home:1880/power-outage"
-                send_resolved: true
+          # - name: "nodered" #TODO: I do not have this
+          #   webhook_configs:
+          #     - url: "http://node-red.home:1880/power-outage"
+          #       send_resolved: true
         route:
           group_by: ["alertname", "job"]
           group_wait: 30s
@@ -61,10 +61,10 @@ spec:
               match_re:
                 severity: critical
               continue: true
-            - receiver: "nodered"
-              match:
-                alertname: UPSOnBattery
-              continue: true
+            # - receiver: "nodered" #TODO: I do not have this
+            #   match:
+            #     alertname: UPSOnBattery
+            #   continue: true
         inhibit_rules:
           - source_match:
               severity: "critical"
@@ -76,17 +76,24 @@ spec:
         pathType: Prefix
         ingressClassName: "traefik"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "alert-box"
+          cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+          external-dns/is-public: "true"
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
         tls:
           - hosts:
               - "alert-manager.${SECRET_DOMAIN}"
+            secretName: alert-manager-tls
       alertmanagerSpec:
         storage:
           volumeClaimTemplate:
             spec:
-              storageClassName: "ceph-block"
+              storageClassName: "rook-cephfs"
               resources:
                 requests:
                   storage: 1Gi
@@ -124,9 +131,10 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints:
-        - 192.168.42.10
-        - 192.168.42.11
-        - 192.168.42.12
+        #  - 192.168.42.10
+        #  - 192.168.42.11
+        #  - 192.168.42.12
+        - 192.168.1.10
       service:
         enabled: true
         port: 10257
@@ -138,21 +146,24 @@ spec:
     kubeScheduler:
       enabled: true
       endpoints:
-        - 192.168.42.10
-        - 192.168.42.11
-        - 192.168.42.12
+        #  - 192.168.42.10
+        #  - 192.168.42.11
+        #  - 192.168.42.12
+        - 192.168.1.10
     kubeProxy:
       enabled: true
       endpoints:
-        - 192.168.42.10
-        - 192.168.42.11
-        - 192.168.42.12
+        #  - 192.168.42.10
+        #  - 192.168.42.11
+        #  - 192.168.42.12
+        - 192.168.1.10
     kubeEtcd:
       enabled: true
       endpoints:
-        - 192.168.42.10
-        - 192.168.42.11
-        - 192.168.42.12
+        #  - 192.168.42.10
+        #  - 192.168.42.11
+        #  - 192.168.42.12
+        - 192.168.1.10
       service:
         enabled: true
         port: 2381
@@ -166,16 +177,22 @@ spec:
         pathType: Prefix
         ingressClassName: "traefik"
         annotations:
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "torch"
+          cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
+          external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+          external-dns/is-public: "true"
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
         tls:
           - hosts:
               - "prometheus.${SECRET_DOMAIN}"
-      thanosService:
-        enabled: true
-      thanosServiceMonitor:
-        enabled: true
+      # thanosService: #TODO: I do not have this
+      #   enabled: true
+      # thanosServiceMonitor:
+      #   enabled: true
       prometheusSpec:
         replicas: 1
         replicaExternalLabelName: "replica"
@@ -189,32 +206,32 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: "ceph-block"
+              storageClassName: "rook-cephfs"
               resources:
                 requests:
                   storage: 10Gi
-        thanos:
-          image: quay.io/thanos/thanos:v0.23.1
-          version: v0.22.0
-          objectStorageConfig:
-            name: thanos-objstore
-            key: objstore.yml
+        # thanos: #TODO: I do not have this
+        #   image: quay.io/thanos/thanos:v0.23.1
+        #   version: v0.22.0
+        #   objectStorageConfig:
+        #     name: thanos-objstore
+        #     key: objstore.yml
         additionalScrapeConfigs:
-          - job_name: "coredns"
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "${GATEWAY_ADDR}:9153"
-          - job_name: 'minio-job'
+          # - job_name: "coredns" #TODO: I do not have this
+          #   honor_timestamps: true
+          #   static_configs:
+          #     - targets:
+          #         - "${GATEWAY_ADDR}:9153"
+          - job_name: "minio-job"
             honor_timestamps: true
             metrics_path: /minio/v2/metrics/cluster
             static_configs:
               - targets:
                   - "minio.tools:9000"
-          - job_name: "node-exporter"
-            honor_timestamps: true
-            static_configs:
-              - targets:
-                  - "${GATEWAY_ADDR}:9100"
-                  - "${NAS_ADDR}:9100"
-                  - "192.168.1.28:9100"
+          # - job_name: "node-exporter" #TODO: I do not have this
+          #   honor_timestamps: true
+          #   static_configs:
+          #     - targets:
+          #         - "${GATEWAY_ADDR}:9100"
+          #         - "${NAS_ADDR}:9100"
+          #         - "192.168.1.28:9100"
