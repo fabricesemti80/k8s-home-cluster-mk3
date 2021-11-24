@@ -102,7 +102,7 @@ spec:
         memory: 1000Mi
       limits:
         # gpu.intel.com/i915: 1
-        memory: 16000Mi
+        memory: 10000Mi
     #FIXME: get better hosts
     addons:
       promtail:
