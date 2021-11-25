@@ -26,3 +26,4 @@ resources:
   - vmware-tanzu-charts.yaml
   - kubeview.yaml
   - pihole-chart.yaml
+  - portainer-charts.yaml
