@@ -20,17 +20,17 @@ spec:
     image:
       repository: ghcr.io/k8s-at-home/loki
     ingress:
-      enabled: true
+      enabled: false # true
       # ingressClassName: "traefik"
       annotations:
         kubernetes.io/ingress.class: "traefik"
-        hajimari.io/enable: "true"
-        hajimari.io/icon: "flash-alert-outline"
+        # hajimari.io/enable: "true"
+        # hajimari.io/icon: "flash-alert-outline"
         cert-manager.io/cluster-issuer: "letsencrypt-production" # needs cert
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: networking-traefik-forward-auth@kubernetescrd # needs oauth
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
-        external-dns/is-public: "true"
+        # external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}" # needs external DNS #? https://github.com/kubernetes-sigs/external-dns/blob/master/docs/faq.md
+        # external-dns/is-public: "true"
       hosts:
         - host: "loki.${SECRET_DOMAIN}"
           paths:
