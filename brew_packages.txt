@@ -21,3 +21,4 @@ figlet
 lolcat
 markdownlint-cli
 velero
+mfuentesg/tap/ksd
