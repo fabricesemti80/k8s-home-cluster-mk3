@@ -8,6 +8,6 @@ resources:
   - tools
   - vpn-gateway
   - home
-  - velero
+  #- velero
   - monitoring
   - kube-system
