@@ -111,7 +111,7 @@ spec:
     prometheus-node-exporter:
       fullnameOverride: node-exporter
     grafana:
-      enabled: false
+      enabled: true #false
       forceDeployDashboards: true
       sidecar:
         dashboards:
