@@ -6,4 +6,4 @@ resources:
   - cloudflare-ddns
   #- wildcard-certificate #TODO: enable this later
   #- blocky
-  - pihole
+  #- pihole
