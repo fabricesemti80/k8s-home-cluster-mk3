@@ -1,5 +1,6 @@
 {
-  "enabled": true,
+  //disabled by Fabrice Semti - 7/12/2021
+  "enabled": false,
   "semanticCommits": "enabled",
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard",
